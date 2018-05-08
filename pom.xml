@@ -235,6 +235,21 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.11</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.wildfly.swarm/javafx -->
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>javafx</artifactId>
+            <version>2018.5.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.zenjava/javafx-maven-plugin -->
+        <dependency>
+            <groupId>com.zenjava</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>8.8.3</version>
+        </dependency>
+
     </dependencies>
 
     <!--A projekt összeállítási beállításait tartalmazza-->
@@ -258,15 +273,15 @@
                         <source>1.8</source>
                         <target>1.8</target>
                         <fork>true</fork>
-                        <executable>c:\Program Files\Java\jdk1.8.0_171\bin\javac</executable>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.zenjava</groupId>
                     <artifactId>javafx-maven-plugin</artifactId>
-                    <version>8.8.3</version>
+                    <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <mainClass>${mainClass}</mainClass>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                     </configuration>
                 </plugin>
             </plugins>

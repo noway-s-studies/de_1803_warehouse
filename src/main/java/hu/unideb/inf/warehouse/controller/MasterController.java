@@ -79,8 +79,8 @@ public class MasterController implements Initializable {
             tp.getTabs().add(FXMLLoader.load(getClass().getResource("/view/dataHandling/PurveyorView.fxml")));
             tp.getTabs().add(FXMLLoader.load(getClass().getResource("/view/dataHandling/StockView.fxml")));
             tp.getTabs().add(FXMLLoader.load(getClass().getResource("/view/dataHandling/UnitPriceView.fxml")));
-        } catch (IOException e) {
-
+        } catch (IOException ex) {
+            System.out.println("Fxml megjelenítési hiba:\n" + ex);
         }
     }
 

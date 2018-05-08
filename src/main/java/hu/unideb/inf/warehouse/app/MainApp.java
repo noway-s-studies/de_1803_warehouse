@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Alkalmazás indító osztály.
@@ -62,10 +63,14 @@ public class MainApp extends Application {
      *             adatbázis hozzáférési jelszavának megadása kötelező
      */
     public static void main(String[] args) {
-        if(args.length == 1){
+        if(args.length == 0){
+            Scanner bill = new Scanner(System.in);
+            System.out.print("Kérem adja meg az adatbázis jelszavát: ");
+            DATABASE_PASSWORD = bill.nextLine();
+            System.out.println(DATABASE_PASSWORD);
+        } else if(args.length == 1){
             DATABASE_PASSWORD = args[0];
-        }else{
-            System.out.println("Kérem, paraméterként adja meg az adatbázis jelszavát!");
+        } else{
             System.exit(1);
         }
 
