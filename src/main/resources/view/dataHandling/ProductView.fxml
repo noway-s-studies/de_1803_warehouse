@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<Tab text="Áru" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.warehouse.controller.dataHandling.ProductController">
+   <content>
+      <AnchorPane prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+         <children>
+            <Pane prefHeight="515.0" prefWidth="700.0">
+               <children>
+                  <Label text="Áru"/>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </content>
+</Tab>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>hu.unideb.inf.pti</groupId>
+    <inceptionYear>2018</inceptionYear>
+    <artifactId>Warehouse</artifactId>
+    <version>0.1</version>
+    <packaging>jar</packaging>
+    <name>warehouse</name>
+
+    <!--A projekt leírását tartalmazza-->
+    <description>
+        Raktárkészlet nyílvántartó.
+    </description>
+
+    <organization>
+        <name>GNU GENERAL PUBLIC LICENSE</name>
+    </organization>
+
+    <!--Maven tulajdonságok értékeit tartalmazza-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <mainClass>hu.unideb.inf.warehouse.app.MainApp</mainClass>
+        <basedir></basedir>
+    </properties>
+
+    <!--A projekt fejlesztőiről tartalmaz információkat-->
+    <developers>
+        <developer>
+            <id>U5KA1V</id>
+            <name>Róbert Turánszki</name>
+            <email>noway0032@gmail.com</email>
+            <organization>Debreceni Egyetem, Informatikai Kar</organization>
+            <organizationUrl>http://www.inf.unideb.hu</organizationUrl>
+            <url>http://www.github.com/noway0032</url>
+            <properties>
+                <group>DE-PTI</group>
+            </properties>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <!--Olyan opcionális beállításokat tartalmaz, amelyek csak aktiválás esetén kerülnek felhasználásra-->
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <defaultGoal>clean package</defaultGoal>
+            </build>
+        </profile>
+        <profile>
+            <id>javaDoc</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <defaultGoal>clean site</defaultGoal>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>3.0.0</version>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+        <profile>
+            <id>testProfile</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <test.directory>src/test/resources</test.directory>
+            </properties>
+            <build>
+                <defaultGoal>clean install</defaultGoal>
+                <testResources>
+                    <testResource>
+                        <directory>${test.directory}</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <version>3.0.0</version>
+                            <configuration>
+                                <configLocation>src/main/resources/config/checkstyle.xml</configLocation>
+                                <failsOnError>false</failsOnError>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
+
+    <!--A projekthez használt verziókezelő rendszer eléréséhez tartalmaz információkat-->
+    <scm>
+        <connection>scm:git:////github.com/noway0032/warehouse.git</connection>
+        <developerConnection>scm:git:git@github.com/noway0032/warehouse.git</developerConnection>
+        <tag>Warehouse</tag>
+        <url>https://github.com/noway0032/warehouse</url>
+    </scm>
+
+    <!--A projekthez használt szoftverlicencekről tartalmaz információkat-->
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>http://www.gnu.org/copyleft/gpl.html</url>
+        </license>
+    </licenses>
+
+    <!--A projektben bővítményekhez használt távoli tárolókról szolgáltat információkat-->
+    <!--<pluginRepositories>-->
+    <!--</pluginRepositories>-->
+
+    <!--A projektben függőségekhez használt távoli tárolókról szolgáltat információkat-->
+    <repositories>
+        <repository>
+            <id>maven.oracle.com</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://maven.oracle.com</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
+    <!--A projekt függőségeit tartalmazza-->
+    <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.17.Final</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.2.17.Final</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.4.1.Final</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.14.2.0</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyclient -->
+        <dependency>
+        <groupId>org.apache.derby</groupId>
+        <artifactId>derbyclient</artifactId>
+        <version>10.14.1.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.persistence/persistence-api -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.noraui/ojdbc7 -->
+        <!--<dependency>-->
+            <!--<groupId>com.github.noraui</groupId>-->
+            <!--<artifactId>ojdbc7</artifactId>-->
+            <!--<version>12.1.0.2</version>-->
+        <!--</dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.13</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-jdk14 -->
+        <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-jdk14</artifactId>
+        <version>1.7.25</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.11</version>
+        </dependency>
+    </dependencies>
+
+    <!--A projekt összeállítási beállításait tartalmazza-->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.2</version>
+                    <configuration>
+                        <outputEncoding>UTF-8</outputEncoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.7.0</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <fork>true</fork>
+                        <executable>c:\Program Files\Java\jdk1.8.0_171\bin\javac</executable>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.zenjava</groupId>
+                    <artifactId>javafx-maven-plugin</artifactId>
+                    <version>8.8.3</version>
+                    <configuration>
+                        <mainClass>${mainClass}</mainClass>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <!--jelentéskészítő-bővítmények és a jelentéskészítés beállításainak megadására szolgáló elem-->
+    <reporting>
+        <plugins>
+        </plugins>
+    </reporting>
+</project>

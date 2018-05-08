@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+
+<HBox alignment="CENTER"
+      maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+      minHeight="-Infinity" minWidth="-Infinity"
+      style="-fx-background-color: #303030;"
+      xmlns="http://javafx.com/javafx/9.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="hu.unideb.inf.warehouse.controller.HomeController">
+   <children>
+      <Text fill="#a18181" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" />
+   </children>
+</HBox>
