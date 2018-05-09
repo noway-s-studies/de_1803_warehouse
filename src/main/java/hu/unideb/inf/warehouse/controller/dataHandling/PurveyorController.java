@@ -1,11 +1,5 @@
 package hu.unideb.inf.warehouse.controller.dataHandling;
 
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.GrayColor;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import hu.unideb.inf.warehouse.controller.PdfController;
 import hu.unideb.inf.warehouse.model.PurveyorModel;
 import hu.unideb.inf.warehouse.pojo.Purveyor;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -24,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 
+import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -42,8 +37,10 @@ public class PurveyorController implements Initializable {
     TextField inputDiscount;
     @FXML
     Button addNewContactButton;
-    @FXML
-    TextField exportFileName;
+
+    private TableColumn<Purveyor, String> label = null;
+    private TableColumn<Purveyor, String> addressColumn = null;
+    private TableColumn<Purveyor, Number> discountColumn = null;
 
     @FXML
     public void actionNewContactButton(MouseEvent event){
@@ -63,40 +60,40 @@ public class PurveyorController implements Initializable {
 
     @FXML
     public void exportButtonClicked(MouseEvent event){
-        if (exportFileName.getText() != null && exportFileName.getText().length()>0){
-            float[] columnWidths = {2, 4, 4, 6};
-            PdfPTable pdfTable = new PdfPTable(columnWidths);
-            pdfTable.setWidthPercentage(100);
-            PdfPCell cell = new PdfPCell(new Phrase("KontaktLista"));
-            cell.setBackgroundColor(GrayColor.GRAYWHITE);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setColspan(4);
-            pdfTable.addCell(cell);
-
-            pdfTable.getDefaultCell().setBackgroundColor(new GrayColor(0.75f));
-            pdfTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-            pdfTable.addCell("Sorszám");
-            pdfTable.addCell("Megnevezés");
-            pdfTable.addCell("Elérhetőség");
-            pdfTable.addCell("Kedvezmény");
-            pdfTable.setHeaderRows(1);
-
-            pdfTable.getDefaultCell().setBackgroundColor(GrayColor.GRAYWHITE);
-            pdfTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-
-            for (int i = 1; i <= data.size(); i++) {
-                Purveyor actualPurveyor = data.get(i - 1);
-
-                pdfTable.addCell(""+i);
-                pdfTable.addCell(actualPurveyor.getLabel());
-                pdfTable.addCell(actualPurveyor.getAvailability());
-                pdfTable.addCell(String.valueOf(actualPurveyor.getDiscount()));
-            }
-            PdfController pdf = new PdfController();
-            String fileName = exportFileName.getText();
-            pdf.pdfGenerator(fileName, pdfTable);
-
-        }
+//        if (exportFileName.getText() != null && exportFileName.getText().length()>0){
+//            float[] columnWidths = {2, 4, 4, 6};
+//            PdfPTable pdfTable = new PdfPTable(columnWidths);
+//            pdfTable.setWidthPercentage(100);
+//            PdfPCell cell = new PdfPCell(new Phrase("KontaktLista"));
+//            cell.setBackgroundColor(GrayColor.GRAYWHITE);
+//            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            cell.setColspan(4);
+//            pdfTable.addCell(cell);
+//
+//            pdfTable.getDefaultCell().setBackgroundColor(new GrayColor(0.75f));
+//            pdfTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+//            pdfTable.addCell("Sorszám");
+//            pdfTable.addCell("Megnevezés");
+//            pdfTable.addCell("Elérhetőség");
+//            pdfTable.addCell("Kedvezmény");
+//            pdfTable.setHeaderRows(1);
+//
+//            pdfTable.getDefaultCell().setBackgroundColor(GrayColor.GRAYWHITE);
+//            pdfTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+//
+//            for (int i = 1; i <= data.size(); i++) {
+//                Purveyor actualPurveyor = data.get(i - 1);
+//
+//                pdfTable.addCell(""+i);
+//                pdfTable.addCell(actualPurveyor.getLabel());
+//                pdfTable.addCell(actualPurveyor.getAvailability());
+//                pdfTable.addCell(String.valueOf(actualPurveyor.getDiscount()));
+//            }
+//            PdfController pdf = new PdfController();
+//            String fileName = exportFileName.getText();
+//            pdf.pdfGenerator(fileName, pdfTable);
+//
+//        }
     }
 
     @Override
@@ -106,17 +103,17 @@ public class PurveyorController implements Initializable {
 
     private void setTableData() {
 
-        TableColumn<Purveyor, String> label = new TableColumn("Megnevezés");
+        label = new TableColumn("Megnevezés");
         label.setMinWidth(200);
         label.setCellFactory(TextFieldTableCell.forTableColumn());
         label.setCellValueFactory(new PropertyValueFactory<Purveyor, String>("label"));
 
-        TableColumn<Purveyor, String> addressColumn = new TableColumn("Elérhetőség");
+        addressColumn = new TableColumn("Elérhetőség");
         addressColumn.setMinWidth(100);
         addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         addressColumn.setCellValueFactory(new PropertyValueFactory<Purveyor, String>("availability"));
 
-        TableColumn<Purveyor, Number> discountColumn = new TableColumn("Kedvezmény");
+        discountColumn = new TableColumn("Kedvezmény");
         discountColumn.setMinWidth(100);
         discountColumn.setCellFactory(TextFieldTableCell.<Purveyor, Number>forTableColumn(new NumberStringConverter()));
         discountColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Purveyor, Number>, ObservableValue<Number>>() {

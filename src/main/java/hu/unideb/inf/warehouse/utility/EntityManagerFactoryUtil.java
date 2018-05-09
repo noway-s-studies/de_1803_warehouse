@@ -10,7 +10,6 @@ public class EntityManagerFactoryUtil implements AutoCloseable{
 
     private static EntityManagerFactoryUtil emfu = new EntityManagerFactoryUtil();
     private static final String persistenceUnitName = "PostgreSQL";
-    private EntityManagerFactoryUtil(){}
     private EntityManagerFactory entityManagerFactory;
 
     public static EntityManagerFactoryUtil getInstance(){

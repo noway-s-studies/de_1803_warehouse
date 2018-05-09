@@ -71,6 +71,7 @@ public class MasterController implements Initializable {
     void DataHandlingView(MouseEvent event) {
         defaultButtonStyle();
         dataHandlingViewButton.setStyle(activeButtonStyle);
+        Parent root = null;
         TabPane tp = new TabPane();
         try {
             borderPane.setCenter(tp);
