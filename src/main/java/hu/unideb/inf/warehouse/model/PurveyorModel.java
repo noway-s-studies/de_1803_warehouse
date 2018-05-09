@@ -2,7 +2,6 @@ package hu.unideb.inf.warehouse.model;
 
 import hu.unideb.inf.warehouse.pojo.Purveyor;
 import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;

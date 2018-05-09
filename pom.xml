@@ -27,7 +27,10 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <mainClass>hu.unideb.inf.warehouse.app.MainApp</mainClass>
-        <basedir></basedir>
+
+        <java.version>1.8</java.version>
+        <hibernate.version>4.3.6.Final</hibernate.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <!--A projekt fejlesztőiről tartalmaz információkat-->
@@ -50,64 +53,64 @@
 
     <!--Olyan opcionális beállításokat tartalmaz, amelyek csak aktiválás esetén kerülnek felhasználásra-->
     <profiles>
-        <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <defaultGoal>clean package</defaultGoal>
-            </build>
-        </profile>
-        <profile>
-            <id>javaDoc</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <defaultGoal>clean site</defaultGoal>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>3.0.0</version>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-        <profile>
-            <id>testProfile</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <test.directory>src/test/resources</test.directory>
-            </properties>
-            <build>
-                <defaultGoal>clean install</defaultGoal>
-                <testResources>
-                    <testResource>
-                        <directory>${test.directory}</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-checkstyle-plugin</artifactId>
-                            <version>3.0.0</version>
-                            <configuration>
-                                <configLocation>src/main/resources/config/checkstyle.xml</configLocation>
-                                <failsOnError>false</failsOnError>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
+        <!--<profile>-->
+            <!--<id>default</id>-->
+            <!--<activation>-->
+                <!--<activeByDefault>true</activeByDefault>-->
+            <!--</activation>-->
+            <!--<build>-->
+                <!--<defaultGoal>clean package</defaultGoal>-->
+            <!--</build>-->
+        <!--</profile>-->
+        <!--<profile>-->
+            <!--<id>javaDoc</id>-->
+            <!--<activation>-->
+                <!--<activeByDefault>false</activeByDefault>-->
+            <!--</activation>-->
+            <!--<build>-->
+                <!--<defaultGoal>clean site</defaultGoal>-->
+                <!--<pluginManagement>-->
+                    <!--<plugins>-->
+                        <!--<plugin>-->
+                            <!--<groupId>org.apache.maven.plugins</groupId>-->
+                            <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+                            <!--<version>3.0.0</version>-->
+                        <!--</plugin>-->
+                    <!--</plugins>-->
+                <!--</pluginManagement>-->
+            <!--</build>-->
+        <!--</profile>-->
+        <!--<profile>-->
+            <!--<id>testProfile</id>-->
+            <!--<activation>-->
+                <!--<activeByDefault>false</activeByDefault>-->
+            <!--</activation>-->
+            <!--<properties>-->
+                <!--<test.directory>src/test/resources</test.directory>-->
+            <!--</properties>-->
+            <!--<build>-->
+                <!--<defaultGoal>clean install</defaultGoal>-->
+                <!--<testResources>-->
+                    <!--<testResource>-->
+                        <!--<directory>${test.directory}</directory>-->
+                        <!--<filtering>true</filtering>-->
+                    <!--</testResource>-->
+                <!--</testResources>-->
+                <!--<pluginManagement>-->
+                    <!--<plugins>-->
+                        <!--<plugin>-->
+                            <!--<groupId>org.apache.maven.plugins</groupId>-->
+                            <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
+                            <!--<version>3.0.0</version>-->
+                            <!--<configuration>-->
+                                <!--<configLocation>src/main/resources/config/checkstyle.xml</configLocation>-->
+                                <!--<failsOnError>false</failsOnError>-->
+                            <!--</configuration>-->
+                        <!--</plugin>-->
+                    <!--</plugins>-->
+                <!--</pluginManagement>-->
+            <!--</build>-->
+        <!--</profile>-->
     </profiles>
 
 
@@ -170,35 +173,69 @@
             <version>5.5.13</version>
         </dependency>
 
+
+
+
+        <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
         <dependency>
-        <groupId>com.oracle</groupId>
-        <artifactId>javafx</artifactId>
-        <version>2.2.3</version>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
+        </dependency>
+        <!-- For connection pooling -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <!-- MySQL connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.5</version>
+        </dependency>
+        <!-- Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <!--A projekt összeállítási beállításait tartalmazza-->
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.7.0</version>
-                    <configuration>
-                        <encoding>UTF-8</encoding>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                        <fork>true</fork>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
-    <!--jelentéskészítő-bővítmények és a jelentéskészítés beállításainak megadására szolgáló elem-->
-    <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
         </plugins>
-    </reporting>
+    </build>
 </project>

@@ -2,18 +2,17 @@ package hu.unideb.inf.warehouse.model;
 
 import hu.unideb.inf.warehouse.pojo.Place;
 import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.List;
-
 
 /**
  * A telephelyek adatait kezelő osztály.
  *
  */
 public class PlaceModel {
+
     EntityManagerFactory entityManagerFactory;
     EntityManager entityManager;
 
@@ -21,6 +20,7 @@ public class PlaceModel {
         this.entityManagerFactory  = EntityManagerFactoryUtil.getInstance().getEntityManagerFactory();
         this.entityManager  = entityManagerFactory.createEntityManager();
     }
+
     /**
      * Letárolja a telephelyet.
      *
@@ -36,6 +36,7 @@ public class PlaceModel {
             entityManager.close();
         }
     }
+
     /**
      * Listába rendezve visszaadja a telephelyekről tárolt adatokat.
      *
