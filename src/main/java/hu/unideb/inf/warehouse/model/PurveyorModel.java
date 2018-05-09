@@ -16,13 +16,22 @@ public class PurveyorModel implements AutoCloseable {
         this.entityManager  = new EntityManagerFactoryUtil().getEntityManager();
     }
 
-    public void addPurveyor(Object object) {
+    public void addPurveyor(Purveyor purveyor) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(object);
+            entityManager.persist(purveyor);
             entityManager.getTransaction().commit();
         } catch (Exception ex){
-            System.out.println("Hiba a/az '"+object.getClass().toString()+"' osztály adatainak betöltésekor:\n");
+            System.out.println("Hiba a/az '"+purveyor.getClass().toString()+"' osztály adatainak betöltésekor:\n");
+        }
+    }
+    public void modPurveyor(Purveyor purveyor) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(purveyor);
+            entityManager.getTransaction().commit();
+        } catch (Exception ex){
+            System.out.println("Hiba a/az '"+purveyor.getClass().toString()+"' osztály adatainak betöltésekor:\n");
         }
     }
 

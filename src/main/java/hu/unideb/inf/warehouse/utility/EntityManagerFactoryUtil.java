@@ -11,7 +11,7 @@ import java.util.Map;
 public class EntityManagerFactoryUtil implements AutoCloseable{
 
     private static EntityManagerFactoryUtil emfu = new EntityManagerFactoryUtil();
-    private static final String persistenceUnitName = "PostgreSQL";
+    private static final String persistenceUnitName = "warehouseLocalDatabasa";
     static private EntityManagerFactory entityManagerFactory;
 
     public static EntityManagerFactoryUtil getInstance(){

@@ -8,23 +8,36 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PurveyorController implements Initializable {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private PurveyorModel pm;
     private ObservableList<Purveyor> data = FXCollections.observableArrayList();
+    private Purveyor selectedPurveyor = null;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        pm = new PurveyorModel();
+        table.getColumns().removeAll();
+        updateTableData();
+        numberMaxMinTextFieldListener(inputDiscount, 0,100);
+        table.setOnMouseClicked((MouseEvent event) -> {
+            editedRow();
+        });
+    }
 
     @FXML
     TableView table;
@@ -35,14 +48,56 @@ public class PurveyorController implements Initializable {
     @FXML
     TextField inputDiscount;
     @FXML
-    Button addNewContactButton;
-
+    Button cleanPurveyorTextFieldButton;
+    @FXML
+    Button addPurveyorButton;
+    @FXML
+    Button delPurveyorButton;
+    @FXML
+    Button modPurveyorButton;
+    @FXML
     private TableColumn<Purveyor, String> label = null;
+    @FXML
     private TableColumn<Purveyor, String> addressColumn = null;
+    @FXML
     private TableColumn<Purveyor, Number> discountColumn = null;
 
     @FXML
-    public void actionNewContactButton(MouseEvent event){
+    public void actionCleanPurveyorTextField(MouseEvent event){
+        inputDescription.clear();
+        inputDiscount.clear();
+        inputAddress.clear();
+        cleanPurveyorTextFieldButton.setVisible(true);
+        addPurveyorButton.setVisible(true);
+        delPurveyorButton.setVisible(false);
+        modPurveyorButton.setVisible(false);
+        selectedPurveyor = null;
+    }
+
+    @FXML
+    public void actionDelPurveyorContact(MouseEvent event){
+        if (selectedPurveyor != null){
+            pm.removePurveyor(selectedPurveyor);
+            actionCleanPurveyorTextField(event);
+            updateTableData();
+        }
+    }
+
+    @FXML
+    public void actionModPurveyorContact(MouseEvent event){
+        if (selectedPurveyor != null){
+            selectedPurveyor.setLabel(inputDescription.getText());
+            selectedPurveyor.setAvailability(inputAddress.getText());
+            selectedPurveyor.setDiscount(Integer.parseInt(inputDiscount.getText().trim()));
+
+            pm.modPurveyor(selectedPurveyor);
+            actionCleanPurveyorTextField(event);
+            updateTableData();
+        }
+    }
+
+    @FXML
+    public void actionAddPurveyorContact(MouseEvent event){
         if (inputDescription != null && inputAddress != null && inputDiscount != null){
             Purveyor newPureyor = new Purveyor(
                     inputDescription.getText(),
@@ -54,67 +109,43 @@ public class PurveyorController implements Initializable {
             inputDescription.clear();
             inputDiscount.clear();
             inputAddress.clear();
+            log.info("Új beszerzőt betőltve");
         }
     }
 
-    @FXML
-    public void exportButtonClicked(MouseEvent event){
-//        if (exportFileName.getText() != null && exportFileName.getText().length()>0){
-//            float[] columnWidths = {2, 4, 4, 6};
-//            PdfPTable pdfTable = new PdfPTable(columnWidths);
-//            pdfTable.setWidthPercentage(100);
-//            PdfPCell cell = new PdfPCell(new Phrase("KontaktLista"));
-//            cell.setBackgroundColor(GrayColor.GRAYWHITE);
-//            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-//            cell.setColspan(4);
-//            pdfTable.addCell(cell);
-//
-//            pdfTable.getDefaultCell().setBackgroundColor(new GrayColor(0.75f));
-//            pdfTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-//            pdfTable.addCell("Sorszám");
-//            pdfTable.addCell("Megnevezés");
-//            pdfTable.addCell("Elérhetőség");
-//            pdfTable.addCell("Kedvezmény");
-//            pdfTable.setHeaderRows(1);
-//
-//            pdfTable.getDefaultCell().setBackgroundColor(GrayColor.GRAYWHITE);
-//            pdfTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-//
-//            for (int i = 1; i <= data.size(); i++) {
-//                Purveyor actualPurveyor = data.get(i - 1);
-//
-//                pdfTable.addCell(""+i);
-//                pdfTable.addCell(actualPurveyor.getLabel());
-//                pdfTable.addCell(actualPurveyor.getAvailability());
-//                pdfTable.addCell(String.valueOf(actualPurveyor.getDiscount()));
-//            }
-//            PdfController pdf = new PdfController();
-//            String fileName = exportFileName.getText();
-//            pdf.pdfGenerator(fileName, pdfTable);
-//
-//        }
+    private void numberMaxMinTextFieldListener(TextField tf, int min, int max) {
+        tf.setTextFormatter(new TextFormatter<Integer>(change -> {
+            if (change.isDeleted()) {
+                return change;
+            }
+            String txt = change.getControlNewText();
+            if (txt.matches("0\\d+")) {
+                return null;
+            }
+            try {
+                int n = Integer.parseInt(txt);
+                return min <= n && n <= max ? change : null;
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }));
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        pm = new PurveyorModel();
-        setTableData();
-    }
-
-    private void setTableData() {
+    private void updateTableData() {
+        table.getItems().clear();
+        table.getColumns().clear();
 
         label = new TableColumn("Megnevezés");
         label.setMinWidth(200);
-        label.setCellFactory(TextFieldTableCell.forTableColumn());
-        label.setCellValueFactory(new PropertyValueFactory<Purveyor, String>("label"));
-
         addressColumn = new TableColumn("Elérhetőség");
         addressColumn.setMinWidth(100);
-        addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        addressColumn.setCellValueFactory(new PropertyValueFactory<Purveyor, String>("availability"));
-
         discountColumn = new TableColumn("Kedvezmény");
         discountColumn.setMinWidth(100);
+
+        label.setCellFactory(TextFieldTableCell.forTableColumn());
+        label.setCellValueFactory(new PropertyValueFactory<Purveyor, String>("label"));
+        addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        addressColumn.setCellValueFactory(new PropertyValueFactory<Purveyor, String>("availability"));
         discountColumn.setCellFactory(TextFieldTableCell.<Purveyor, Number>forTableColumn(new NumberStringConverter()));
         discountColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Purveyor, Number>, ObservableValue<Number>>() {
             @Override
@@ -122,13 +153,22 @@ public class PurveyorController implements Initializable {
                 return new SimpleIntegerProperty(param.getValue().getDiscount());
             }
         });
-
-
         table.getColumns().addAll(label, addressColumn, discountColumn);
-
-
         data.addAll(pm.getPurveyor());
         table.setItems(data);
+    }
+
+    public void editedRow() {
+        if (table.getSelectionModel().getSelectedItem() != null) {
+            selectedPurveyor = (Purveyor) table.getSelectionModel().getSelectedItem();
+            cleanPurveyorTextFieldButton.setVisible(true);
+            addPurveyorButton.setVisible(false);
+            delPurveyorButton.setVisible(true);
+            modPurveyorButton.setVisible(true);
+            inputDescription.setText(selectedPurveyor.getLabel());
+            inputAddress.setText(selectedPurveyor.getAvailability());
+            inputDiscount.setText(String.valueOf(selectedPurveyor.getDiscount()));
+        }
     }
 }
 

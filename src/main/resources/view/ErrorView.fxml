@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-
-<HBox alignment="CENTER"
-      maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-      minHeight="-Infinity" minWidth="-Infinity"
-      style="-fx-background-color: #303030;"
-      xmlns="http://javafx.com/javafx/9.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="hu.unideb.inf.warehouse.controller.ErrorController">
+<HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.warehouse.controller.ErrorController">
    <children>
+      <TableView prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
       <Text fill="#a18181" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" />
    </children>
 </HBox>
