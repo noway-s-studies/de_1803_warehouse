@@ -8,12 +8,12 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class PurveyorModel {
+public class PurveyorModel implements AutoCloseable {
 
     private EntityManager entityManager;
 
     public PurveyorModel() {
-        this.entityManager  = new EntityManagerFactoryUtil().getEntityManagerFactory().createEntityManager();
+        this.entityManager  = new EntityManagerFactoryUtil().getEntityManager();
     }
 
     public void addPurveyor(Object object) {
@@ -58,5 +58,10 @@ public class PurveyorModel {
         } catch (Exception ex){
             System.out.println("Hiba az 'Beszerző' adatainak törlésekor:\n" + ex);
         }
+    }
+
+    @Override
+    public void close() {
+        this.entityManager.close();
     }
 }

@@ -18,13 +18,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 
-import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PurveyorController implements Initializable {
 
-    private PurveyorModel pm = new PurveyorModel();
+    private PurveyorModel pm;
     private ObservableList<Purveyor> data = FXCollections.observableArrayList();
 
     @FXML
@@ -98,6 +97,7 @@ public class PurveyorController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        pm = new PurveyorModel();
         setTableData();
     }
 
