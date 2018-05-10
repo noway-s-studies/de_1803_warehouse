@@ -1,20 +1,16 @@
 package hu.unideb.inf.warehouse.controller.dataHandling;
 
-import hu.unideb.inf.warehouse.model.ProductModel;
-import hu.unideb.inf.warehouse.model.PurveyorModel;
-import hu.unideb.inf.warehouse.model.StockModel;
+import hu.unideb.inf.warehouse.model.*;
 import hu.unideb.inf.warehouse.pojo.*;
 import hu.unideb.inf.warehouse.utility.TextListenerUtil;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
@@ -23,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class StockController implements Initializable {
@@ -33,10 +30,10 @@ public class StockController implements Initializable {
     private Stock selectedStock = null;
     private Purveyor purveyor;
     private Product product;
-    private PurveyorModel purveyorModel;
-    private ProductModel productModel;
     private Place place;
     private UnitPrice unitPrice;
+    private PurveyorModel purveyorModel;
+    private ProductModel productModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,18 +44,31 @@ public class StockController implements Initializable {
         table.setOnMouseClicked((MouseEvent event) -> {
             editedRow();
         });
+        loadProduct();
+        loadPurveyor();
+        loadPlace();
+        loadUnitPrice();
     }
 
     @FXML
     TableView table;
+
+    private ObservableList<String> purveyorList = FXCollections.observableArrayList();
     @FXML
-    TextField inputPurveyor;
+    ComboBox comboBoxPurveyor;
+
+    private ObservableList<String> productList = FXCollections.observableArrayList();
     @FXML
-    TextField inputProduct;
+    ComboBox comboBoxProduct;
+
+    private ObservableList<String> placeList = FXCollections.observableArrayList();
     @FXML
-    TextField inputPlace;
+    ComboBox comboBoxPlace;
+
+    private ObservableList<String> unitPriceList = FXCollections.observableArrayList();
     @FXML
-    TextField inputUnitPrice;
+    ComboBox comboBoxUnitPrice;
+
     @FXML
     TextField inputQuantity;
     @FXML
@@ -76,7 +86,7 @@ public class StockController implements Initializable {
     @FXML
     private TableColumn<Stock, String> placeColumn = null;
     @FXML
-    private TableColumn<Stock, String> unitPriceColumn = null;
+    private TableColumn<Stock, Number> unitPriceColumn = null;
     @FXML
     private TableColumn<Stock, Number> quantityColumn = null;
 
@@ -91,11 +101,43 @@ public class StockController implements Initializable {
     }
 
     private void clearInputBox() {
-        inputPurveyor.clear();
-        inputProduct.clear();
-        inputPlace.clear();
-        inputUnitPrice.clear();
+        comboBoxPurveyor.setValue(null);
+        comboBoxProduct.setValue(null);
+        comboBoxPlace.setValue(null);
+        comboBoxUnitPrice.setValue(null);
         inputQuantity.clear();
+    }
+
+    private void loadPurveyor(){
+        purveyorList.removeAll(purveyorList);
+        List<String> actualPurveyorNameList = new PurveyorModel().getPurveyorName();
+        purveyorList.addAll(actualPurveyorNameList);
+        comboBoxPurveyor.getItems().addAll(purveyorList);
+
+    }
+
+    private void loadProduct(){
+        productList.removeAll(productList);
+        List<String> actualProductNameList = new ProductModel().getProductName();
+        purveyorList.addAll(actualProductNameList);
+        comboBoxProduct.getItems().addAll(purveyorList);
+
+    }
+
+    private void loadPlace(){
+        placeList.removeAll(placeList);
+        List<String> actualPlaceNameList = new PlaceModel().getPlaceName();
+        placeList.addAll(actualPlaceNameList);
+        comboBoxPlace.getItems().addAll(placeList);
+
+    }
+
+    private void loadUnitPrice(){
+        unitPriceList.removeAll(unitPriceList);
+        List<String> actualUnitPriceNameList = new UnitPriceModel().getUnitPriceName();
+        unitPriceList.addAll(actualUnitPriceNameList);
+        comboBoxUnitPrice.getItems().addAll(unitPriceList);
+
     }
 
     @FXML
@@ -111,9 +153,43 @@ public class StockController implements Initializable {
     public void actionModStockContact(MouseEvent event){
         purveyor = new Purveyor();
         product = new Product();
+        place = new Place();
+        unitPrice = new UnitPrice();
         if (selectedStock != null){
-            selectedStock.setPurveyor(purveyor.findPurveyor(Long.valueOf(inputPurveyor.getText())));
-            selectedStock.setProduct(product.findProduct(Long.valueOf(inputProduct.getText())));
+
+            long purveyorId = 0;
+            List<Purveyor> pul = new PurveyorModel().getPurveyor();
+            for (Purveyor list : pul) {
+                if (list.getLabel().equals(comboBoxPurveyor.getValue())){
+                    purveyorId = list.getId();
+                }
+            }
+            long productId = 0;
+            List<Product> prl = new ProductModel().getProduct();
+            for (Product list : prl) {
+                if (list.getLabel().equals(comboBoxProduct.getValue())){
+                    productId = list.getId();
+                }
+            }
+
+            long placeId = 0;
+            List<Place> pll = new PlaceModel().getPlace();
+            for (Place list : pll) {
+                if (list.getLabel().equals(comboBoxPlace.getValue())){
+                    placeId = list.getId();
+                }
+            }
+            long unitPriceId = 0;
+            List<UnitPrice> upl = new UnitPriceModel().getUnitPrice();
+            for (UnitPrice list : upl) {
+                if (list.getPrice() == Integer.parseInt(comboBoxUnitPrice.getValue().toString())){
+                    unitPriceId = list.getId();
+                }
+            }
+            selectedStock.setPurveyor(purveyor.findPurveyor(purveyorId));
+            selectedStock.setProduct(product.findProduct(productId));
+            selectedStock.setPlace(place.findPlace(placeId));
+            selectedStock.setUnitPrice(unitPrice.findUnitPrice(unitPriceId));
             selectedStock.setQuantity(Integer.parseInt(inputQuantity.getText().trim()));
 
             pm.modStock(selectedStock);
@@ -129,16 +205,49 @@ public class StockController implements Initializable {
         place = new Place();
         unitPrice = new UnitPrice();
 
-        if (inputPurveyor != null && inputProduct != null && inputPlace != null && inputUnitPrice != null && inputQuantity != null){
-            Stock newPureyor = new Stock(
-                    purveyor.findPurveyor(Long.valueOf(inputPurveyor.getText())),
-                    product.findProduct(Long.valueOf(inputProduct.getText())),
-                    place.findPlace(Long.valueOf(inputPlace.getText())),
-                    unitPrice.findUnitPrice(Long.valueOf(inputUnitPrice.getText())),
+        if (comboBoxPurveyor.getValue() != null && comboBoxProduct.getValue() != null
+                && comboBoxPlace.getValue() != null && comboBoxUnitPrice.getValue() != null
+                && inputQuantity != null){
+
+            long purveyorId = 0;
+            List<Purveyor> pul = new PurveyorModel().getPurveyor();
+            for (Purveyor list : pul) {
+                if (list.getLabel().equals(comboBoxPurveyor.getValue())){
+                    purveyorId = list.getId();
+                }
+            }
+            long productId = 0;
+            List<Product> prl = new ProductModel().getProduct();
+            for (Product list : prl) {
+                if (list.getLabel().equals(comboBoxProduct.getValue())){
+                    productId = list.getId();
+                }
+            }
+
+            long placeId = 0;
+            List<Place> pll = new PlaceModel().getPlace();
+            for (Place list : pll) {
+                if (list.getLabel().equals(comboBoxPlace.getValue())){
+                    placeId = list.getId();
+                }
+            }
+            long unitPriceId = 0;
+            List<UnitPrice> upl = new UnitPriceModel().getUnitPrice();
+            for (UnitPrice list : upl) {
+                if (list.getPrice() == Integer.parseInt(comboBoxUnitPrice.getValue().toString())){
+                    unitPriceId = list.getId();
+                }
+            }
+
+            Stock newStock = new Stock(
+                    purveyor.findPurveyor(purveyorId),
+                    product.findProduct(productId),
+                    place.findPlace(placeId),
+                    unitPrice.findUnitPrice(unitPriceId),
                     Integer.parseInt(inputQuantity.getText().trim())
             );
-            data.add(newPureyor);
-            pm.addStock(newPureyor);
+            data.add(newStock);
+            pm.addStock(newStock);
             clearInputBox();
             log.info("Új árukészlet betőltve");
         }
@@ -166,20 +275,36 @@ public class StockController implements Initializable {
         quantityColumn.setMinWidth(100);
 
         purveyorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//        purveyorColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, String>, ObservableValue<String>>() {
-//            @Override
-//            public ObservableValue<String> call(TableColumn.CellDataFeatures<Stock, String> param) {
-//                return new SimpleStringProperty(String.valueOf(param.getValue().getPurveyor().getId()));
-//            }
-//        });
+        purveyorColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Stock, String> param) {
+                return new SimpleStringProperty(param.getValue().getPurveyor().getLabel());
+            }
+        });
 
         productColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//        productColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, String>, ObservableValue<String>>() {
-//            @Override
-//            public ObservableValue<String> call(TableColumn.CellDataFeatures<Stock, String> param) {
-//                return new SimpleStringProperty(param.getValue().getProduct().getId().toString());
-//            }
-//        });
+        productColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Stock, String> param) {
+                return new SimpleStringProperty(param.getValue().getProduct().getLabel());
+            }
+        });
+
+        placeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        placeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Stock, String> param) {
+                return new SimpleStringProperty(param.getValue().getPlace().getLabel());
+            }
+        });
+
+        unitPriceColumn.setCellFactory(TextFieldTableCell.<Stock, Number>forTableColumn(new NumberStringConverter()));
+        unitPriceColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, Number>, ObservableValue<Number>>() {
+            @Override
+            public ObservableValue<Number> call(TableColumn.CellDataFeatures<Stock, Number> param) {
+                return new SimpleIntegerProperty(param.getValue().getUnitPrice().getPrice());
+            }
+        });
 
         quantityColumn.setCellFactory(TextFieldTableCell.<Stock, Number>forTableColumn(new NumberStringConverter()));
         quantityColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, Number>, ObservableValue<Number>>() {
@@ -188,6 +313,7 @@ public class StockController implements Initializable {
                 return new SimpleIntegerProperty(param.getValue().getQuantity());
             }
         });
+
         table.getColumns().addAll(purveyorColumn, productColumn, placeColumn, unitPriceColumn, quantityColumn);
         data.addAll(pm.getStock());
         table.setItems(data);
@@ -200,8 +326,10 @@ public class StockController implements Initializable {
             addStockButton.setVisible(false);
             delStockButton.setVisible(true);
             modStockButton.setVisible(true);
-            inputPurveyor.setText(selectedStock.getPurveyor().getId().toString());
-            inputProduct.setText(selectedStock.getProduct().getId().toString());
+            comboBoxPurveyor.setValue(selectedStock.getPurveyor().getLabel());
+            comboBoxProduct.setValue(selectedStock.getProduct().getLabel());
+            comboBoxPlace.setValue(selectedStock.getPlace().getLabel());
+            comboBoxUnitPrice.setValue(selectedStock.getUnitPrice().getPrice());
             inputQuantity.setText(String.valueOf(selectedStock.getQuantity()));
         }
     }

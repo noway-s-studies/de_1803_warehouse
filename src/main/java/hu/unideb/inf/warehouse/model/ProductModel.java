@@ -4,6 +4,7 @@ import hu.unideb.inf.warehouse.pojo.Product;
 import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -43,7 +44,19 @@ public class ProductModel  implements AutoCloseable {
                     "SELECT u FROM Product u", Product.class);
             list = query.getResultList();
         } catch (Exception ex){
-            System.out.println("Hiba a 'Beszerző' adatainak lekérdezéskor:\n" + ex);
+            System.out.println("Hiba az 'Áru' adatainak lekérdezéskor:\n" + ex);
+        }
+        return list;
+    }
+
+    public List<String> getProductName() {
+        List<String> list = null;
+        try {
+            Query query = entityManager.createNativeQuery(
+                    "SELECT label FROM Product");
+            list = query.getResultList();
+        } catch (Exception ex){
+            System.out.println("Hiba az 'Áru' adatainak lekérdezéskor:\n" + ex);
         }
         return list;
     }

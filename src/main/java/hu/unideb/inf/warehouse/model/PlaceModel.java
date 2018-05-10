@@ -48,18 +48,29 @@ public class PlaceModel  implements AutoCloseable {
                     "SELECT u FROM Place u", Place.class);
             list = query.getResultList();
         } catch (Exception ex){
-            System.out.println("Hiba a 'Beszerző' adatainak lekérdezéskor:\n" + ex);
+            System.out.println("Hiba a 'Telephely' adatainak lekérdezéskor:\n" + ex);
         }
         return list;
     }
 
+    public List<String> getPlaceName() {
+        List<String> list = null;
+        try {
+            Query query = entityManager.createNativeQuery(
+                    "SELECT label FROM Place");
+            list = query.getResultList();
+        } catch (Exception ex){
+            System.out.println("Hiba a 'Telephely' név adatainak lekérdezéskor:\n" + ex);
+        }
+        return list;
+    }
     public void removePlace(Place Place) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(entityManager.find(Place.class, Place.getId()));
             entityManager.getTransaction().commit();
         } catch (Exception ex){
-            System.out.println("Hiba az 'Beszerző' adatainak törlésekor:\n" + ex);
+            System.out.println("Hiba a 'Telephely' adatainak törlésekor:\n" + ex);
         }
     }
 
@@ -67,4 +78,5 @@ public class PlaceModel  implements AutoCloseable {
     public void close() {
         this.entityManager.close();
     }
+
 }

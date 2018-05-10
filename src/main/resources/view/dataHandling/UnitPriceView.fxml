@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Button?>
-<Tab text="Egységár" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.warehouse.controller.dataHandling.UnitPriceController">
+<?import javafx.scene.control.ComboBox?>
+<Tab text="  Egységár   " closable="false" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.warehouse.controller.dataHandling.UnitPriceController">
     <content>
         <AnchorPane prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
             <children>
@@ -22,13 +24,14 @@
                         <Label alignment="TOP_RIGHT" layoutX="20.0" layoutY="413.0" text="Beszerző:" />
                         <Label alignment="TOP_RIGHT" layoutX="21.0" layoutY="447.0" text="Áru:" />
                         <Label alignment="TOP_RIGHT" layoutX="19.0" layoutY="480.0" text="Ár:" />
-                        <TextField id="inputPurveyor" fx:id="inputPurveyor" layoutX="101.0" layoutY="409.0" prefHeight="25.0" prefWidth="470.0" />
-                        <TextField id="inputProduct" fx:id="inputProduct" layoutX="101.0" layoutY="442.0" prefHeight="25.0" prefWidth="470.0" />
+                        <ComboBox id="comboBoxPurveyor" fx:id="comboBoxPurveyor" layoutX="101.0" layoutY="409.0" prefHeight="25.0" prefWidth="470.0" />
+                        <ComboBox id="comboBoxProduct" fx:id="comboBoxProduct" layoutX="101.0" layoutY="442.0" prefHeight="25.0" prefWidth="470.0" />
+
                         <TextField id="inputPrice" fx:id="inputPrice" layoutX="101.0" layoutY="476.0" prefHeight="25.0" prefWidth="470.0" />
                         <Button id="cleanUnitPriceTextFieldButton" fx:id="cleanUnitPriceTextFieldButton" layoutX="585.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#actionCleanUnitPriceTextField" prefHeight="30.0" prefWidth="100.0" text="Takarít" />
                         <Button id="addUnitPriceButton" fx:id="addUnitPriceButton" layoutX="585.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#actionAddUnitPriceContact" prefHeight="30.0" prefWidth="100.0" text="Hozzáadás" />
-                        <Button id="delUnitPriceButton" fx:id="delUnitPriceButton" layoutX="585.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#actionDelUnitPriceContact" prefHeight="30.0" prefWidth="100.0" visible="false" text="Töröl" />
-                        <Button id="modUnitPriceButton" fx:id="modUnitPriceButton" layoutX="585.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#actionModUnitPriceContact" prefHeight="30.0" prefWidth="100.0" visible="false" text="Módosítás" />
+                        <Button id="delUnitPriceButton" fx:id="delUnitPriceButton" layoutX="585.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#actionDelUnitPriceContact" prefHeight="30.0" prefWidth="100.0" text="Töröl" visible="false" />
+                        <Button id="modUnitPriceButton" fx:id="modUnitPriceButton" layoutX="585.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#actionModUnitPriceContact" prefHeight="30.0" prefWidth="100.0" text="Módosítás" visible="false" />
                     </children>
                 </Pane>
             </children>

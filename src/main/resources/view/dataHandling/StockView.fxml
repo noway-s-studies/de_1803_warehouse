@@ -8,7 +8,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableView?>
-<Tab text="Árukészlet" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.warehouse.controller.dataHandling.StockController">
+<?import javafx.scene.control.ComboBox?>
+<Tab text=" Árukészlet  " closable="false" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.warehouse.controller.dataHandling.StockController">
     <content>
         <AnchorPane prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
             <children>
@@ -24,10 +25,12 @@
                         <Label alignment="TOP_RIGHT" layoutX="20.0" layoutY="413.0" text="Telephely:" />
                         <Label alignment="TOP_RIGHT" layoutX="20.0" layoutY="447.0" text="Egységár:" />
                         <Label alignment="TOP_RIGHT" layoutX="20.0" layoutY="480.0" text="Mennyiség:" />
-                        <TextField id="inputPurveyor" fx:id="inputPurveyor" layoutX="100.0" layoutY="343.0" prefHeight="25.0" prefWidth="470.0" />
-                        <TextField id="inputProduct" fx:id="inputProduct" layoutX="100.0" layoutY="376.0" prefHeight="25.0" prefWidth="470.0" />
-                        <TextField id="inputPlace" fx:id="inputPlace" layoutX="100.0" layoutY="409.0" prefHeight="25.0" prefWidth="470.0" />
-                        <TextField id="inputUnitPrice" fx:id="inputUnitPrice" layoutX="100.0" layoutY="442.0" prefHeight="25.0" prefWidth="470.0" />
+
+                        <ComboBox id="comboBoxPurveyor" fx:id="comboBoxPurveyor" layoutX="100.0" layoutY="343.0" prefHeight="25.0" prefWidth="470.0" />
+                        <ComboBox id="comboBoxProduct" fx:id="comboBoxProduct" layoutX="100.0" layoutY="376.0" prefHeight="25.0" prefWidth="470.0" />
+                        <ComboBox id="comboBoxPlace" fx:id="comboBoxPlace" layoutX="100.0" layoutY="409.0" prefHeight="25.0" prefWidth="470.0" />
+                        <ComboBox id="comboBoxUnitPrice" fx:id="comboBoxUnitPrice" layoutX="100.0" layoutY="442.0" prefHeight="25.0" prefWidth="470.0" />
+
                         <TextField id="inputQuantity" fx:id="inputQuantity" layoutX="100.0" layoutY="476.0" prefHeight="25.0" prefWidth="470.0" />
                         <Button id="cleanStockTextFieldButton" fx:id="cleanStockTextFieldButton" layoutX="585.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#actionCleanStockTextField" prefHeight="30.0" prefWidth="100.0" text="Takarít" />
                         <Button id="addStockButton" fx:id="addStockButton" layoutX="585.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#actionAddStockContact" prefHeight="30.0" prefWidth="100.0" text="Hozzáadás" />

@@ -75,10 +75,10 @@ public class MasterController implements Initializable {
         TabPane tp = new TabPane();
         try {
             borderPane.setCenter(tp);
+            tp.getTabs().add(FXMLLoader.load(getClass().getResource("/view/dataHandling/StockView.fxml")));
             tp.getTabs().add(FXMLLoader.load(getClass().getResource("/view/dataHandling/PlaceView.fxml")));
             tp.getTabs().add(FXMLLoader.load(getClass().getResource("/view/dataHandling/ProductView.fxml")));
             tp.getTabs().add(FXMLLoader.load(getClass().getResource("/view/dataHandling/PurveyorView.fxml")));
-            tp.getTabs().add(FXMLLoader.load(getClass().getResource("/view/dataHandling/StockView.fxml")));
             tp.getTabs().add(FXMLLoader.load(getClass().getResource("/view/dataHandling/UnitPriceView.fxml")));
         } catch (IOException ex) {
             System.out.println("Fxml megjelenítési hiba:\n" + ex);

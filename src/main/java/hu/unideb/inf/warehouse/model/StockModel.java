@@ -42,7 +42,7 @@ public class StockModel  implements AutoCloseable {
                     "SELECT u FROM Stock u", Stock.class);
             list = query.getResultList();
         } catch (Exception ex){
-            System.out.println("Hiba a 'Beszerző' adatainak lekérdezéskor:\n" + ex);
+            System.out.println("Hiba az 'Árukészlet' adatainak lekérdezéskor:\n" + ex);
         }
         return list;
     }
@@ -53,7 +53,7 @@ public class StockModel  implements AutoCloseable {
             entityManager.remove(entityManager.find(Stock.class, Stock.getId()));
             entityManager.getTransaction().commit();
         } catch (Exception ex){
-            System.out.println("Hiba az 'Beszerző' adatainak törlésekor:\n" + ex);
+            System.out.println("Hiba az 'Árukészlet' adatainak törlésekor:\n" + ex);
         }
     }
 

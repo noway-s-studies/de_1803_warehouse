@@ -48,11 +48,11 @@ public class PurveyorModel implements AutoCloseable {
         return list;
     }
 
-    public List<Purveyor> getPurveyorBy() {
-        List<Purveyor> list = null;
+    public List<String> getPurveyorName() {
+        List<String> list = null;
         try {
             Query query = entityManager.createNativeQuery(
-                    "SELECT * FROM Purveyor", Purveyor.class);
+                    "SELECT label FROM Purveyor");
             list = query.getResultList();
         } catch (Exception ex){
             System.out.println("Hiba a 'Beszerző' adatainak lekérdezéskor:\n" + ex);
