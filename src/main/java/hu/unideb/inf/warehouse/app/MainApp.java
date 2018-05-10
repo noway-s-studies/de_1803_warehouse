@@ -35,6 +35,7 @@ public class MainApp extends Application {
             positionMod(stage, rootView);
             stage.setScene(scene);
             stage.initStyle(StageStyle.TRANSPARENT);
+            scene.getStylesheets().add(getClass().getResource("/styles/masterStyle.css").toExternalForm());
             stage.show();
         } catch (Exception ex) {
             ex.printStackTrace();

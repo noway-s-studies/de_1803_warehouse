@@ -27,13 +27,13 @@ public class ProductModel  implements AutoCloseable {
         }
     }
 
-    public void modProduct(Product Product) {
+    public void modProduct(Product product) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.merge(Product);
+            entityManager.merge(product);
             entityManager.getTransaction().commit();
         } catch (Exception ex){
-            System.out.println("Hiba a/az '"+Product.getClass().toString()+"' osztály adatainak betöltésekor:\n");
+            System.out.println("Hiba a/az '"+product.getClass().toString()+"' osztály adatainak betöltésekor:\n");
         }
     }
 

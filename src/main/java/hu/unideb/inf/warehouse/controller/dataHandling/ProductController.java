@@ -28,6 +28,9 @@ public class ProductController implements Initializable {
         pm = new ProductModel();
         table.getColumns().removeAll();
         updateTableData();
+        table.setOnMouseClicked((MouseEvent event) -> {
+            editedRow();
+        });
     }
 
     @FXML

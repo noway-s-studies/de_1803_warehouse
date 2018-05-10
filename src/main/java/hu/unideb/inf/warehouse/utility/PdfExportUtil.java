@@ -1,4 +1,4 @@
-package hu.unideb.inf.warehouse.controller;
+package hu.unideb.inf.warehouse.utility;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
@@ -9,12 +9,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-public class PdfController {
+public class PdfExportUtil {
 
     public void pdfGenerator(String fName, PdfPTable text){
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(fName + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/export/" + fName + ".pdf"));
             document.open();
             Image topLogo = Image.getInstance(getClass().getResource("/pic/logo512.png"));
             topLogo.scaleToFit(100,100);
