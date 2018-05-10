@@ -1,5 +1,7 @@
 package hu.unideb.inf.warehouse.pojo;
 
+import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -40,6 +42,16 @@ public class UnitPrice {
         this.purveyor = purveyor;
         this.product = product;
         this.price = price;
+    }
+
+    /**
+     * Visszaadja a paraméterként kapott id-hez tartozó egységárat reprezentáló objektumot.
+     * @param id egységár id
+     * @return egységárat reprezentáló objektum
+     */
+    public UnitPrice findUnitPrice(Long id) {
+        EntityManager entityManager  = new EntityManagerFactoryUtil().getEntityManager();
+        return entityManager.find(UnitPrice.class, id);
     }
 
     /**

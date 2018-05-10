@@ -1,9 +1,8 @@
 package hu.unideb.inf.warehouse.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -46,6 +45,16 @@ public class Place {
         this.label = label;
         this.availability = availability;
         this.weighting = weighting;
+    }
+
+    /**
+     * Visszaadja a paraméterként kapott id-hez tartozó telephelyet reprezentáló objektumot.
+     * @param id telephely id
+     * @return telephelyet reprezentáló objektum
+     */
+    public Place findPlace(Long id) {
+        EntityManager entityManager  = new EntityManagerFactoryUtil().getEntityManager();
+        return entityManager.find(Place.class, id);
     }
 
     /**

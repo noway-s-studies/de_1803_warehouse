@@ -18,6 +18,7 @@ public class Stock {
     private Long id;
     private Date recorded;
     private boolean status;
+
     @ManyToOne
     private Purveyor purveyor;
     @ManyToOne

@@ -16,6 +16,7 @@ public class PurveyorModel implements AutoCloseable {
         this.entityManager  = new EntityManagerFactoryUtil().getEntityManager();
     }
 
+
     public void addPurveyor(Purveyor purveyor) {
         try {
             entityManager.getTransaction().begin();

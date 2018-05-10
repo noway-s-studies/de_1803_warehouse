@@ -2,6 +2,7 @@ package hu.unideb.inf.warehouse.controller.dataHandling;
 
 import hu.unideb.inf.warehouse.model.PlaceModel;
 import hu.unideb.inf.warehouse.pojo.Place;
+import hu.unideb.inf.warehouse.utility.TextListenerUtil;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,7 +34,7 @@ public class PlaceController implements Initializable {
         pm = new PlaceModel();
         table.getColumns().removeAll();
         updateTableData();
-        numberMaxMinTextFieldListener(inputWeighting, 0,100);
+        new TextListenerUtil().numberMaxMinTextFieldListener(inputWeighting, 0,100);
         table.setOnMouseClicked((MouseEvent event) -> {
             editedRow();
         });
@@ -64,14 +65,18 @@ public class PlaceController implements Initializable {
 
     @FXML
     public void actionCleanPlaceTextField(MouseEvent event){
-        inputLabel.clear();
-        inputWeighting.clear();
-        inputAvailability.clear();
+        clearInputBox();
         cleanPlaceTextFieldButton.setVisible(true);
         addPlaceButton.setVisible(true);
         delPlaceButton.setVisible(false);
         modPlaceButton.setVisible(false);
         selectedPlace = null;
+    }
+
+    private void clearInputBox() {
+        inputLabel.clear();
+        inputWeighting.clear();
+        inputAvailability.clear();
     }
 
     @FXML
@@ -106,29 +111,9 @@ public class PlaceController implements Initializable {
             );
             data.add(newPureyor);
             pm.addPlace(newPureyor);
-            inputLabel.clear();
-            inputWeighting.clear();
-            inputAvailability.clear();
+            clearInputBox();
             log.info("Új beszerzőt betőltve");
         }
-    }
-
-    private void numberMaxMinTextFieldListener(TextField tf, int min, int max) {
-        tf.setTextFormatter(new TextFormatter<Integer>(change -> {
-            if (change.isDeleted()) {
-                return change;
-            }
-            String txt = change.getControlNewText();
-            if (txt.matches("0\\d+")) {
-                return null;
-            }
-            try {
-                int n = Integer.parseInt(txt);
-                return min <= n && n <= max ? change : null;
-            } catch (NumberFormatException e) {
-                return null;
-            }
-        }));
     }
 
     private void updateTableData() {

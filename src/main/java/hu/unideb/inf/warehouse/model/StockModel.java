@@ -1,46 +1,45 @@
 package hu.unideb.inf.warehouse.model;
 
-import hu.unideb.inf.warehouse.pojo.UnitPrice;
-import hu.unideb.inf.warehouse.pojo.UnitPrice;
+import hu.unideb.inf.warehouse.pojo.Stock;
 import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
+
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class UnitPriceModel implements AutoCloseable {
+public class StockModel  implements AutoCloseable {
 
     private EntityManager entityManager;
 
-    public UnitPriceModel() {
+    public StockModel() {
         this.entityManager  = new EntityManagerFactoryUtil().getEntityManager();
     }
 
-    public void addUnitPrice(UnitPrice UnitPrice) {
+    public void addStock(Stock Stock) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(UnitPrice);
+            entityManager.persist(Stock);
             entityManager.getTransaction().commit();
         } catch (Exception ex){
-            System.out.println("Hiba a/az '"+UnitPrice.getClass().toString()+"' osztály adatainak betöltésekor:\n");
+            System.out.println("Hiba a/az '"+Stock.getClass().toString()+"' osztály adatainak betöltésekor:\n");
         }
     }
 
-    public void modUnitPrice(UnitPrice UnitPrice) {
+    public void modStock(Stock Stock) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.merge(UnitPrice);
+            entityManager.merge(Stock);
             entityManager.getTransaction().commit();
         } catch (Exception ex){
-            System.out.println("Hiba a/az '"+UnitPrice.getClass().toString()+"' osztály adatainak betöltésekor:\n");
+            System.out.println("Hiba a/az '"+Stock.getClass().toString()+"' osztály adatainak betöltésekor:\n");
         }
     }
 
-    public List<UnitPrice> getUnitPrice() {
-        List<UnitPrice> list = null;
+    public List<Stock> getStock() {
+        List<Stock> list = null;
         try {
-            TypedQuery<UnitPrice> query = entityManager.createQuery(
-                    "SELECT u FROM UnitPrice u", UnitPrice.class);
+            TypedQuery<Stock> query = entityManager.createQuery(
+                    "SELECT u FROM Stock u", Stock.class);
             list = query.getResultList();
         } catch (Exception ex){
             System.out.println("Hiba a 'Beszerző' adatainak lekérdezéskor:\n" + ex);
@@ -48,10 +47,10 @@ public class UnitPriceModel implements AutoCloseable {
         return list;
     }
 
-    public void removeUnitPrice(UnitPrice UnitPrice) {
+    public void removeStock(Stock Stock) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.remove(entityManager.find(UnitPrice.class, UnitPrice.getId()));
+            entityManager.remove(entityManager.find(Stock.class, Stock.getId()));
             entityManager.getTransaction().commit();
         } catch (Exception ex){
             System.out.println("Hiba az 'Beszerző' adatainak törlésekor:\n" + ex);

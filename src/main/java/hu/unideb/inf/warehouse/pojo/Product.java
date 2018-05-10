@@ -1,5 +1,7 @@
 package hu.unideb.inf.warehouse.pojo;
 
+import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -38,6 +40,16 @@ public class Product {
         this.recorded = new Date();
         this.label = label;
         this.unitLabel = unitLabel;
+    }
+
+    /**
+     * Visszaadja a paraméterként kapott id-hez tartozó árut reprezentáló objektumot.
+     * @param id beszerző id
+     * @return árut reprezentáló objektum
+     */
+    public Product findProduct(Long id) {
+        EntityManager entityManager  = new EntityManagerFactoryUtil().getEntityManager();
+        return entityManager.find(Product.class, id);
     }
 
     /**

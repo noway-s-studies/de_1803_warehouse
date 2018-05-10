@@ -1,9 +1,8 @@
 package hu.unideb.inf.warehouse.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -46,6 +45,16 @@ public class Purveyor {
         this.label = label;
         this.availability = availability;
         this.discount = discount;
+    }
+
+    /**
+     * Visszaadja a paraméterként kapott id-hez tartozó beszerzőt reprezentáló objektumot.
+     * @param id beszerző id
+     * @return beszerzőt reprezentáló objektum
+     */
+    public Purveyor findPurveyor(Long id) {
+        EntityManager entityManager  = new EntityManagerFactoryUtil().getEntityManager();
+        return entityManager.find(Purveyor.class, id);
     }
 
     /**

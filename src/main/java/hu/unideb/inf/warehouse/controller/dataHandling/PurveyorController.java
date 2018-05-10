@@ -2,6 +2,7 @@ package hu.unideb.inf.warehouse.controller.dataHandling;
 
 import hu.unideb.inf.warehouse.model.PurveyorModel;
 import hu.unideb.inf.warehouse.pojo.Purveyor;
+import hu.unideb.inf.warehouse.utility.TextListenerUtil;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,7 +34,7 @@ public class PurveyorController implements Initializable {
         pm = new PurveyorModel();
         table.getColumns().removeAll();
         updateTableData();
-        numberMaxMinTextFieldListener(inputDiscount, 0,100);
+        new TextListenerUtil().numberMaxMinTextFieldListener(inputDiscount, 0,100);
         table.setOnMouseClicked((MouseEvent event) -> {
             editedRow();
         });
@@ -64,14 +65,18 @@ public class PurveyorController implements Initializable {
 
     @FXML
     public void actionCleanPurveyorTextField(MouseEvent event){
-        inputDescription.clear();
-        inputDiscount.clear();
-        inputAddress.clear();
+        clearInputBox();
         cleanPurveyorTextFieldButton.setVisible(true);
         addPurveyorButton.setVisible(true);
         delPurveyorButton.setVisible(false);
         modPurveyorButton.setVisible(false);
         selectedPurveyor = null;
+    }
+
+    private void clearInputBox() {
+        inputDescription.clear();
+        inputDiscount.clear();
+        inputAddress.clear();
     }
 
     @FXML
@@ -106,29 +111,9 @@ public class PurveyorController implements Initializable {
             );
             data.add(newPureyor);
             pm.addPurveyor(newPureyor);
-            inputDescription.clear();
-            inputDiscount.clear();
-            inputAddress.clear();
+            clearInputBox();
             log.info("Új beszerzőt betőltve");
         }
-    }
-
-    private void numberMaxMinTextFieldListener(TextField tf, int min, int max) {
-        tf.setTextFormatter(new TextFormatter<Integer>(change -> {
-            if (change.isDeleted()) {
-                return change;
-            }
-            String txt = change.getControlNewText();
-            if (txt.matches("0\\d+")) {
-                return null;
-            }
-            try {
-                int n = Integer.parseInt(txt);
-                return min <= n && n <= max ? change : null;
-            } catch (NumberFormatException e) {
-                return null;
-            }
-        }));
     }
 
     private void updateTableData() {
