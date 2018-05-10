@@ -21,22 +21,27 @@ public class TextListenerUtil {
      * @param max maximum számérték
      */
     public void numberMaxMinTextFieldListener(TextField tf, int min, int max) {
-        tf.setTextFormatter(new TextFormatter<Integer>(change -> {
-            if (change.isDeleted()) {
-                log.debug("Módosított TextField mező.");
-                return change;
-            }
-            String txt = change.getControlNewText();
-            if (txt.matches("0\\d+")) {
-                return null;
-            }
-            try {
-                int n = Integer.parseInt(txt);
-                return min <= n && n <= max ? change : null;
-            } catch (NumberFormatException e) {
-                log.debug(this.getClass() + " : " + e);
-                return null;
-            }
-        }));
+        if (tf.getText() != null){
+            tf.setTextFormatter(new TextFormatter<Integer>(change -> {
+                if (change.isDeleted()) {
+                    log.info("Módosított TextField mező.");
+                    return change;
+                }
+                String txt = change.getControlNewText();
+                if (txt.matches("0\\d+") || txt.length() == 0) {
+                    return null;
+                }
+                try {
+                    int n = Integer.parseInt(txt);
+                    if (min <= n && n <= max){
+                        return change;
+                    }
+                    return null;
+                } catch (NumberFormatException e) {
+                    log.info("Beviteli mező értékének autómatikus módosítása: "+e);
+                    return null;
+                }
+            }));
+        }
     }
 }
