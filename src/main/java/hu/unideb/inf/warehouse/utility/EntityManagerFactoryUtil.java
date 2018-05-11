@@ -16,10 +16,21 @@ import java.util.Map;
  *
  */
 public class EntityManagerFactoryUtil implements AutoCloseable{
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger logger = LoggerFactory.getLogger(EntityManagerFactoryUtil.class);
+    /**
+     * Adatbázis beállítások hivatkozásának neve.
+     */
     private static final String persistenceUnitName = "warehouseLocalDatabasa";
+    /**
+     * Az EntityManagerFactoryUtil osztály egy példánya.
+     */
     private static EntityManagerFactoryUtil emfu = new EntityManagerFactoryUtil();
+    /**
+     * Az EntityManagerFactory osztály egy példánya.
+     */
     private static EntityManagerFactory entityManagerFactory;
 
     static {

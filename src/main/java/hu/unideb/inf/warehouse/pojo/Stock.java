@@ -13,20 +13,46 @@ import java.util.Date;
 @Entity
 public class Stock {
 
+    /**
+     * Az árukészlet egyedi azonosítója. Autómatikusan generált.
+     */
     @Id
     @GeneratedValue
+    /**
+     * Az árukészlet betöltésének ideje.
+     */
     private Long id;
+    /**
+     * Az árukészlet státusza.
+     */
     private Date recorded;
+    /**
+     * Az árukészlet megnevezése. Egyedi azonosító.
+     */
     private boolean status;
-
+    /**
+     * Az árukészlethez kapcsolódó beszerző objektum.
+     */
     @ManyToOne
     private Purveyor purveyor;
+    /**
+     * Az árukészlethez kapcsolódó áru objektum.
+     */
     @ManyToOne
     private Product product;
+    /**
+     * Az árukészlethez kapcsolódó telephely objektum.
+     */
     @ManyToOne
     private Place place;
+    /**
+     * Az árukészlethez kapcsolódó egységár objektum.
+     */
     @ManyToOne
     private UnitPrice unitPrice;
+    /**
+     * Az árukészlet mennyisége.
+     */
     private int quantity;
 
     /**

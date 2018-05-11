@@ -16,23 +16,6 @@
         Raktárkészlet nyílvántartó.
     </description>
 
-    <organization>
-        <name>GNU GENERAL PUBLIC LICENSE</name>
-    </organization>
-
-    <!--Maven tulajdonságok értékeit tartalmazza-->
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <mainClass>hu.unideb.inf.warehouse.app.MainApp</mainClass>
-
-        <java.version>1.8</java.version>
-        <hibernate.version>4.3.6.Final</hibernate.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <!--A projekt fejlesztőiről tartalmaz információkat-->
     <developers>
         <developer>
@@ -50,6 +33,39 @@
             </roles>
         </developer>
     </developers>
+
+    <!--A projekthez használt verziókezelő rendszer eléréséhez tartalmaz információkat-->
+    <scm>
+        <connection>scm:git:////github.com/noway0032/warehouse.git</connection>
+        <developerConnection>scm:git:git@github.com/noway0032/warehouse.git</developerConnection>
+        <tag>Warehouse</tag>
+        <url>https://github.com/noway0032/warehouse</url>
+    </scm>
+
+    <!-- 9. követelmény -->
+    <!--A projekthez használt szoftverlicencekről tartalmaz információkat-->
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>http://www.gnu.org/copyleft/gpl.html</url>
+        </license>
+    </licenses>
+    <organization>
+        <name>GNU GENERAL PUBLIC LICENSE</name>
+    </organization>
+
+    <!--Maven tulajdonságok értékeit tartalmazza-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <mainClass>hu.unideb.inf.warehouse.app.MainApp</mainClass>
+
+        <java.version>1.8</java.version>
+        <hibernate.version>4.3.6.Final</hibernate.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <!--Olyan opcionális beállításokat tartalmaz, amelyek csak aktiválás esetén kerülnek felhasználásra-->
     <profiles>
@@ -114,21 +130,6 @@
     </profiles>
 
 
-    <!--A projekthez használt verziókezelő rendszer eléréséhez tartalmaz információkat-->
-    <scm>
-        <connection>scm:git:////github.com/noway0032/warehouse.git</connection>
-        <developerConnection>scm:git:git@github.com/noway0032/warehouse.git</developerConnection>
-        <tag>Warehouse</tag>
-        <url>https://github.com/noway0032/warehouse</url>
-    </scm>
-    <!--A projekthez használt szoftverlicencekről tartalmaz információkat-->
-    <licenses>
-        <license>
-            <name>GNU General Public License v3.0</name>
-            <url>http://www.gnu.org/copyleft/gpl.html</url>
-        </license>
-    </licenses>
-
     <!--A projektben bővítményekhez használt távoli tárolókról szolgáltat információkat-->
     <!--<pluginRepositories>-->
     <!--</pluginRepositories>-->
@@ -150,6 +151,51 @@
 
     <!--A projekt függőségeit tartalmazza-->
     <dependencies>
+        <!-- 5. követelmény -->
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <!-- 6. követelmény -->
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+
+
+
+
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -187,36 +233,66 @@
             <version>3.7.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <!-- https://mvnrepository.com/artifact/org.openclover/clover-maven-plugin -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
+            <groupId>org.openclover</groupId>
+            <artifactId>clover-maven-plugin</artifactId>
+            <version>4.2.1</version>
         </dependency>
 
     </dependencies>
     <build>
         <plugins>
+            <!-- 6. követelmény -->
+            <!-- https://mvnrepository.com/artifact/org.openclover/clover-maven-plugin -->
+            <plugin>
+                <groupId>org.openclover</groupId>
+                <artifactId>clover-maven-plugin</artifactId>
+                <version>4.2.1</version>
+                <configuration>
+                    <targetPercentage>1%</targetPercentage>
+                    <excludes>
+                        <exclude>**/view/**</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>instrument</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 8. követelmény -->
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>${mainClass}</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-enforcer-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -265,31 +341,8 @@
                     <locales>hu</locales>
                 </configuration>
             </plugin>
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                            <archive>
-                                <manifest>
-                                    <mainClass>${mainClass}</mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
+
             <!-- https://mvnrepository.com/artifact/com.zenjava/javafx-maven-plugin -->
             <plugin>
                 <groupId>com.zenjava</groupId>
@@ -304,6 +357,20 @@
 
     <reporting>
         <plugins>
+            <!-- 6. követelmény -->
+            <!-- https://mvnrepository.com/artifact/org.openclover/clover-maven-plugin -->
+            <plugin>
+                <groupId>org.openclover</groupId>
+                <artifactId>clover-maven-plugin</artifactId>
+                <version>4.2.1</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/view/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

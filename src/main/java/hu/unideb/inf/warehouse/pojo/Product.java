@@ -11,13 +11,28 @@ import java.util.Date;
  */
 @Entity
 public class Product {
+    /**
+     * Az áru egyedi azonosítója. Autómatikusan generált.
+     */
     @Id
     @GeneratedValue
     private Long id;
+    /**
+     * Az áru betöltésének ideje.
+     */
     private Date recorded;
+    /**
+     * Az áru státusza.
+     */
     private boolean status;
+    /**
+     * Az áru megnevezése. Egyedi azonosító.
+     */
     @Column(unique=true)
     private String label;
+    /**
+     * Az áru mértékegysége.
+     */
     private String unitLabel;
 
     /**

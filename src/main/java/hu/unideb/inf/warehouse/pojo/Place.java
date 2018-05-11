@@ -11,17 +11,33 @@ import java.util.Date;
  */
 @Entity
 public class Place {
-
+    /**
+     * Telephely egyedi azonosítója. Autómatikusan generált.
+     */
     @Id
     @GeneratedValue
     private Long id;
+    /**
+     * Telephely betöltésének ideje.
+     */
     private Date recorded;
+    /**
+     * Telephely státusza.
+     */
     private boolean status;
+    /**
+     * Telephely megnevezése. Egyedi azonosító.
+     */
     @Column(unique=true)
     private String label;
+    /**
+     * Telephely elérhetősége.
+     */
     private String availability;
+    /**
+     * Telephely sújozása.
+     */
     private int weighting;
-
     /**
      * Konstruktor, mely létrehoz egy telephelyet reprezentáló objektumot.
      */

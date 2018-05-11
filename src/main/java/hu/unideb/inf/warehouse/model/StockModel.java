@@ -14,8 +14,13 @@ import java.util.List;
  *
  */
 public class StockModel  implements AutoCloseable {
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger logger = LoggerFactory.getLogger(StockModel.class);
+    /**
+     * EntityManager osztály egy példánya az adatbáziskapcsolat felépítéséhez.
+     */
     private EntityManager entityManager;
 
     /**

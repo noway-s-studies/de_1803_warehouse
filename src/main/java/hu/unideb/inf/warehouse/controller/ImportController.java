@@ -15,8 +15,13 @@ import java.util.Scanner;
  * Az adatok betöltéséért felelős osztály.
  */
 public class ImportController {
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger logger = LoggerFactory.getLogger(ImportController.class);
+    /**
+     * A ProductModel osztály egy példánya.
+     */
     private ProductModel productModel = null;
 
     /**

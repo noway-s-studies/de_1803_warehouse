@@ -53,37 +53,99 @@ public class UnitPriceController implements Initializable {
         loadPurveyor();
     }
 
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger log = LoggerFactory.getLogger(UnitPriceController.class);
+    /**
+     * UnitPriceModel osztály egy példánya.
+     */
     private UnitPriceModel pm;
+    /**
+     * A UnitPrice osztály elemeinek listája.
+     */
     private ObservableList<UnitPrice> data = FXCollections.observableArrayList();
+    /**
+     * A UnitPrice osztály táblázatban megjelölt eleme.
+     */
     private UnitPrice selectedUnitPrice = null;
+    /**
+     * A beszerző objektum egy példánya.
+     */
     private Purveyor purveyor;
+    /**
+     * Az áru objektum egy példánya.
+     */
     private Product product;
+    /**
+     * A PurveyorModel objektum egy példánya.
+     */
     private PurveyorModel purveyorModel;
+    /**
+     * A ProductModel objektum egy példánya.
+     */
     private ProductModel productModel;
-
+    /**
+     * TableView objektum egy példánya, táblázat az adatok megjelenítéséhez.
+     */
     @FXML
     private TableView table;
+    /**
+     * A beszerző osztály elemeinek listája.
+     */
     private ObservableList<String> purveyorList = FXCollections.observableArrayList();
+    /**
+     * ComboBox objektum egy példánya, legördülő menü a beszerző módosításához.
+     */
     @FXML
     private ComboBox comboBoxPurveyor;
+    /**
+     * Az áru osztály elemeinek listája.
+     */
     private ObservableList<String> productList = FXCollections.observableArrayList();
+    /**
+     * ComboBox objektum egy példánya, legördülő menü az áru módosításához.
+     */
     @FXML
     private ComboBox comboBoxProduct;
+    /**
+     * TextField objektum egy példánya, beviteli mező a mennyiség módosításához.
+     */
     @FXML
     private TextField inputPrice;
+    /**
+     * Button objektum egy példánya, gomb elem a beviteli mezők adatainak törléséhez.
+     */
     @FXML
     private Button cleanUnitPriceTextFieldButton;
+    /**
+     * Button objektum egy példánya, gomb elem új példány betöltéséhez.
+     */
     @FXML
     private Button addUnitPriceButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány törléséhez.
+     */
     @FXML
     private Button delUnitPriceButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány adatainak módosításához.
+     */
     @FXML
     private Button modUnitPriceButton;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a beszerző megnevezésének megjelenítéséhez.
+     */
     @FXML
     private TableColumn<UnitPrice, String> purveyorColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop az áru megnevezésének megjelenítéséhez.
+     */
     @FXML
     private TableColumn<UnitPrice, String> productColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a mennyiség megjelenítéséhez.
+     */
     @FXML
     private TableColumn<UnitPrice, Number> priceColumn = null;
 

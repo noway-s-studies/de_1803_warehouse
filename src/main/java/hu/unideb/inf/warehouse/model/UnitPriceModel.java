@@ -21,8 +21,13 @@ import java.util.List;
  *
  */
 public class UnitPriceModel implements AutoCloseable {
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger logger = LoggerFactory.getLogger(UnitPriceModel.class);
+    /**
+     * EntityManager osztály egy példánya az adatbáziskapcsolat felépítéséhez.
+     */
     private EntityManager entityManager;
 
     /**

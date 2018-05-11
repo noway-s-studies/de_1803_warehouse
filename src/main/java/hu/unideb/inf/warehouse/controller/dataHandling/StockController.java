@@ -51,50 +51,135 @@ public class StockController implements Initializable {
         loadPlace();
         loadUnitPrice();
     }
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger log = LoggerFactory.getLogger(StockController.class);
+    /**
+     * StockModel osztály egy példánya.
+     */
     private StockModel pm;
+    /**
+     * A Stock osztály elemeinek listája.
+     */
     private ObservableList<Stock> data = FXCollections.observableArrayList();
+    /**
+     * A Stock osztály táblázatban megjelölt eleme.
+     */
     private Stock selectedStock = null;
+    /**
+     * A beszerző objektum egy példánya.
+     */
     private Purveyor purveyor;
+    /**
+     * Az áru objektum egy példánya.
+     */
     private Product product;
+    /**
+     * A telephely objektum egy példánya.
+     */
     private Place place;
+    /**
+     * Az egységár objektum egy példánya.
+     */
     private UnitPrice unitPrice;
+    /**
+     * A PurveyorModel objektum egy példánya.
+     */
     private PurveyorModel purveyorModel;
+    /**
+     * A ProductModel objektum egy példánya.
+     */
     private ProductModel productModel;
-
+    /**
+     * TableView objektum egy példánya, táblázat az adatok megjelenítéséhez.
+     */
     @FXML
-    TableView table;
+    private TableView table;
+    /**
+     * A beszerző osztály elemeinek listája.
+     */
     private ObservableList<String> purveyorList = FXCollections.observableArrayList();
+    /**
+     * ComboBox objektum egy példánya, legördülő menü a beszerző módosításához.
+     */
     @FXML
-    ComboBox comboBoxPurveyor;
+    private ComboBox comboBoxPurveyor;
+    /**
+     * Az áru osztály elemeinek listája.
+     */
     private ObservableList<String> productList = FXCollections.observableArrayList();
+    /**
+     * ComboBox objektum egy példánya, legördülő menü az áru módosításához.
+     */
     @FXML
-    ComboBox comboBoxProduct;
+    private ComboBox comboBoxProduct;
+    /**
+     * A telephely osztály elemeinek listája.
+     */
     private ObservableList<String> placeList = FXCollections.observableArrayList();
+    /**
+     * ComboBox objektum egy példánya, legördülő menü a telephely módosításához.
+     */
     @FXML
-    ComboBox comboBoxPlace;
+    private ComboBox comboBoxPlace;
+    /**
+     * Az egységár osztály elemeinek listája.
+     */
     private ObservableList<String> unitPriceList = FXCollections.observableArrayList();
+    /**
+     * ComboBox objektum egy példánya, legördülő menü az egységár módosításához.
+     */
     @FXML
-    ComboBox comboBoxUnitPrice;
+    private ComboBox comboBoxUnitPrice;
+    /**
+     * TextField objektum egy példánya, beviteli mező a mennyiség módosításához.
+     */
     @FXML
-    TextField inputQuantity;
+    private TextField inputQuantity;
+    /**
+     * Button objektum egy példánya, gomb elem a beviteli mezők adatainak törléséhez.
+     */
     @FXML
-    Button cleanStockTextFieldButton;
+    private Button cleanStockTextFieldButton;
+    /**
+     * Button objektum egy példánya, gomb elem új példány betöltéséhez.
+     */
     @FXML
-    Button addStockButton;
+    private Button addStockButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány törléséhez.
+     */
     @FXML
-    Button delStockButton;
+    private Button delStockButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány adatainak módosításához.
+     */
     @FXML
-    Button modStockButton;
+    private Button modStockButton;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a beszerző megnevezésének megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Stock, String> purveyorColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop az áru megnevezésének megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Stock, String> productColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a telephely megnevezésének megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Stock, String> placeColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop az egységár értékének megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Stock, Number> unitPriceColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a mennyiség megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Stock, Number> quantityColumn = null;
 

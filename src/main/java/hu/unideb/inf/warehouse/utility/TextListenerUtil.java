@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class TextListenerUtil {
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**

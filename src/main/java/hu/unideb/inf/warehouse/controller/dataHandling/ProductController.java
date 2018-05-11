@@ -39,28 +39,65 @@ public class ProductController implements Initializable {
             editedRow();
         });
     }
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger log = LoggerFactory.getLogger(ProductController.class);
+    /**
+     * ProductModel osztály egy példánya.
+     */
     private ProductModel pm;
+    /**
+     * A Product osztály elemeinek listája.
+     */
     private ObservableList<Product> data = FXCollections.observableArrayList();
+    /**
+     * A Product osztály táblázatban megjelölt eleme.
+     */
     private Product selectedProduct = null;
-
+    /**
+     * TableView objektum egy példánya, táblázat az adatok megjelenítéséhez.
+     */
     @FXML
-    TableView table;
+    private TableView table;
+    /**
+     * TextField objektum egy példánya, beviteli mező a megnevezés módosításához.
+     */
     @FXML
-    TextField inputLabel;
+    private TextField inputLabel;
+    /**
+     * TextField objektum egy példánya, beviteli mező a mértékegység módosításához.
+     */
     @FXML
-    TextField inputUnitLabel;
+    private TextField inputUnitLabel;
+    /**
+     * Button objektum egy példánya, gomb elem a beviteli mezők adatainak törléséhez.
+     */
     @FXML
-    Button cleanProductTextFieldButton;
+    private Button cleanProductTextFieldButton;
+    /**
+     * Button objektum egy példánya, gomb elem új példány betöltéséhez.
+     */
     @FXML
-    Button addProductButton;
+    private Button addProductButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány törléséhez.
+     */
     @FXML
-    Button delProductButton;
+    private Button delProductButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány adatainak módosításához.
+     */
     @FXML
-    Button modProductButton;
+    private Button modProductButton;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a megnevezés megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Product, String> labelColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a mértékegység megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Product, String> unitLabelColumn = null;
 

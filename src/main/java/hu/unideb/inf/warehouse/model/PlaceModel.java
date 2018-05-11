@@ -15,8 +15,13 @@ import java.util.List;
  *
  */
 public class PlaceModel  implements AutoCloseable {
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger logger = LoggerFactory.getLogger(PlaceModel.class);
+    /**
+     * EntityManager osztály egy példánya az adatbáziskapcsolat felépítéséhez.
+     */
     private EntityManager entityManager;
 
     /**

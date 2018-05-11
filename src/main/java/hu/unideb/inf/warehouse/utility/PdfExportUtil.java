@@ -12,7 +12,9 @@ import java.io.FileOutputStream;
  * PDF fájl létrehozásáért felelős osztály.
  */
 public class PdfExportUtil {
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger logger = LoggerFactory.getLogger(PdfExportUtil.class);
 
     /**

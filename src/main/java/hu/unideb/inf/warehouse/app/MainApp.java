@@ -21,14 +21,28 @@ import java.util.Scanner;
  * Alkalmazás indító osztály.
  */
 public class MainApp extends Application {
-
+    /**
+     * Logger osztály egy példánya.
+     */
+    private static Logger logger = LoggerFactory.getLogger(MainApp.class);
     /**
      * Adatbázis hozzáférés jelszava.
      */
     public static String DATABASE_PASSWORD;
+    /**
+     * Az alkalmazás elsődleges felülete.
+     */
     private Stage primaryStage;
-    private double xCoordinate, yCoordinate;
-    private static Logger logger = LoggerFactory.getLogger(MainApp.class);
+    /**
+     * Az alkalmazás helyzete a kijelzőn.
+     * X koordináta.
+     */
+    private double xCoordinate;
+    /**
+     * Az alkalmazás helyzete a kijelzőn.
+     * Y koordináta.
+     */
+    private double yCoordinate;
 
     @Override
     public void start(Stage stage) {
@@ -37,7 +51,7 @@ public class MainApp extends Application {
             BorderPane rootView = loadFXML(new BorderPane(), "/view/MasterView.fxml");
             Scene scene = new Scene(rootView);
             scene.setFill(Color.TRANSPARENT);
-            positionMod(stage, rootView);
+            positionMod(primaryStage, rootView);
             stage.setScene(scene);
             stage.initStyle(StageStyle.TRANSPARENT);
             scene.getStylesheets().add(getClass().getResource("/styles/masterStyle.css").toExternalForm());
@@ -57,6 +71,14 @@ public class MainApp extends Application {
         }
     }
 
+    /**
+     * A megjelenítésért felelős FXML álomány betöltése.
+     *
+     * @param identity az álományban található felület típus
+     * @param file a fájl elérési útvonala és neve
+     * @param <T> osztály megnevezés
+     * @return felület típusu objektum
+     */
     private <T> T loadFXML(T identity, String file) {
         FXMLLoader loader = new FXMLLoader();
         try {
@@ -91,6 +113,12 @@ public class MainApp extends Application {
         launch(args);
     }
 
+    /**
+     * Ablak helyzetének beállítása az egér segítségével.
+     *
+     * @param stage alapértelmezett felület osztálypéldánya
+     * @param root betötött elsődleges stíluselem
+     */
     private void positionMod(Stage stage, Parent root) {
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

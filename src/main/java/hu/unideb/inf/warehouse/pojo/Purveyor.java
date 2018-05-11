@@ -11,17 +11,33 @@ import java.util.Date;
  */
 @Entity
 public class Purveyor {
-
+    /**
+     * A beszerző egyedi azonosítója. Autómatikusan generált.
+     */
     @Id
     @GeneratedValue
     private Long id;
+    /**
+     * A beszerző betöltésének ideje.
+     */
     private Date recorded;
+    /**
+     * A beszerző státusza.
+     */
     private boolean status;
+    /**
+     * A beszerző megnevezése. Egyedi azonosító.
+     */
     @Column(unique=true)
     private String label;
+    /**
+     * A beszerző elérhetősége.
+     */
     private String availability;
+    /**
+     * A beszerző kedvezménye.
+     */
     private int discount;
-
     /**
      * Konstruktor, mely létrehoz egy beszerzőt reprezentáló objektumot.
      */

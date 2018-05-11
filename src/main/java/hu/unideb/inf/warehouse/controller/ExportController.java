@@ -20,9 +20,17 @@ import org.slf4j.LoggerFactory;
  * Az adatok exportálásáért felelős osztály.
  */
 public class ExportController {
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger logger = LoggerFactory.getLogger(ExportController.class);
+    /**
+     * A PurveyorModel osztály egy példánya.
+     */
     private PurveyorModel pm = new PurveyorModel();
+    /**
+     * A Purveyor osztály elemeinek listája.
+     */
     private ObservableList<Purveyor> data = FXCollections.observableArrayList();
     /**
      * Exportált adatok mentéséhez használt fájl neve.

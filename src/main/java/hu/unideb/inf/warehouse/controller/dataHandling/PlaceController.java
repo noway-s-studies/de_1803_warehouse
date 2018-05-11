@@ -47,31 +47,75 @@ public class PlaceController implements Initializable {
         });
     }
 
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger log = LoggerFactory.getLogger(PlaceController.class);
+    /**
+     * PlaceModel osztály egy példánya.
+     */
     private PlaceModel pm;
+    /**
+     * A Place osztály elemeinek listája.
+     */
     private ObservableList<Place> data = FXCollections.observableArrayList();
+    /**
+     * A Place osztály táblázatban megjelölt eleme.
+     */
     private Place selectedPlace = null;
-
+    /**
+     * TableView objektum egy példánya, táblázat az adatok megjelenítéséhez.
+     */
     @FXML
-    TableView table;
+    private TableView table;
+    /**
+     * TextField objektum egy példánya, beviteli mező a megnevezés módosításához.
+     */
     @FXML
-    TextField inputLabel;
+    private TextField inputLabel;
+    /**
+     * TextField objektum egy példánya, beviteli mező az elérhetőség módosításához.
+     */
     @FXML
-    TextField inputAvailability;
+    private TextField inputAvailability;
+    /**
+     * TextField objektum egy példánya, beviteli mező a súlyozás módosításához.
+     */
     @FXML
-    TextField inputWeighting;
+    private TextField inputWeighting;
+    /**
+     * Button objektum egy példánya, gomb elem a beviteli mezők adatainak törléséhez.
+     */
     @FXML
-    Button cleanPlaceTextFieldButton;
+    private Button cleanPlaceTextFieldButton;
+    /**
+     * Button objektum egy példánya, gomb elem új példány betöltéséhez.
+     */
     @FXML
-    Button addPlaceButton;
+    private Button addPlaceButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány törléséhez.
+     */
     @FXML
-    Button delPlaceButton;
+    private Button delPlaceButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány adatainak módosításához.
+     */
     @FXML
-    Button modPlaceButton;
+    private Button modPlaceButton;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a megnevezés megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Place, String> labelColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop az elérhetőség megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Place, String> addressColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a súlyozás megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Place, Number> weightingColumn = null;
 

@@ -46,32 +46,75 @@ public class PurveyorController implements Initializable {
             editedRow();
         });
     }
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger log = LoggerFactory.getLogger(PurveyorController.class);
+    /**
+     * PurveyorModel osztály egy példánya.
+     */
     private PurveyorModel pm;
+    /**
+     * A Purveyor osztály elemeinek listája.
+     */
     private ObservableList<Purveyor> data = FXCollections.observableArrayList();
+    /**
+     * A Purveyor osztály táblázatban megjelölt eleme.
+     */
     private Purveyor selectedPurveyor = null;
-
+    /**
+     * TableView objektum egy példánya, táblázat az adatok megjelenítéséhez.
+     */
     @FXML
-    TableView table;
+    private TableView table;
+    /**
+     * TextField objektum egy példánya, beviteli mező a megnevezés módosításához.
+     */
     @FXML
-    TextField inputDescription;
+    private TextField inputDescription;
+    /**
+     * TextField objektum egy példánya, beviteli mező az elérhetőség módosításához.
+     */
     @FXML
-    TextField inputAddress;
+    private TextField inputAddress;
+    /**
+     * TextField objektum egy példánya, beviteli mező a kedvezmény módosításához.
+     */
     @FXML
-    TextField inputDiscount;
+    private TextField inputDiscount;
+    /**
+     * Button objektum egy példánya, gomb elem a beviteli mezők adatainak törléséhez.
+     */
     @FXML
-    Button cleanPurveyorTextFieldButton;
+    private Button cleanPurveyorTextFieldButton;
+    /**
+     * Button objektum egy példánya, gomb elem új példány betöltéséhez.
+     */
     @FXML
-    Button addPurveyorButton;
+    private Button addPurveyorButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány törléséhez.
+     */
     @FXML
-    Button delPurveyorButton;
+    private Button delPurveyorButton;
+    /**
+     * Button objektum egy példánya, gomb elem a kiválasztott példány adatainak módosításához.
+     */
     @FXML
-    Button modPurveyorButton;
+    private Button modPurveyorButton;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a megnevezés megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Purveyor, String> label = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop az elérhetőség megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Purveyor, String> addressColumn = null;
+    /**
+     * TableColumn objektum egy példánya, táblázat oszlop a kedvezmény megjelenítéséhez.
+     */
     @FXML
     private TableColumn<Purveyor, Number> discountColumn = null;
 

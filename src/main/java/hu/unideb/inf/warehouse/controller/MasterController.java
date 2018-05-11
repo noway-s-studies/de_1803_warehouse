@@ -1,6 +1,5 @@
 package hu.unideb.inf.warehouse.controller;
 
-import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,22 +22,47 @@ import java.util.ResourceBundle;
  *
  */
 public class MasterController implements Initializable {
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger logger = LoggerFactory.getLogger(MasterController.class);
+    /**
+     * Alapértelmezett főmenü gomb stílus.
+     */
     private final String defaultButtonStyle = "-fx-background-color: transparent; -fx-text-fill: #F0F0F0;";
+    /**
+     * Aktív főmenü gomb stílus.
+     */
     private final String activeButtonStyle = "-fx-background-color: #404040; -fx-text-fill: #F0F0F0;";
-
+    /**
+     * A BorderPane osztály egy példánya.
+     */
     @FXML
     private BorderPane borderPane;
+    /**
+     * A Button osztály egy példánya. Nyitólap gomb.
+     */
     @FXML
     private Button homeButton;
+    /**
+     * A Button osztály egy példánya. Adatkezelés gomb.
+     */
     @FXML
     private Button dataHandlingViewButton;
+    /**
+     * A Button osztály egy példánya. Inport gomb.
+     */
     @FXML
     private Button importButton;
+    /**
+     * A Button osztály egy példánya. Export gomb.
+     */
     @FXML
     private Button exportButton;
 
+    /**
+     * Alapértelmezett gombstílus beállítása.
+     */
     private void defaultButtonStyle(){
         homeButton.setStyle(defaultButtonStyle);
         dataHandlingViewButton.setStyle(defaultButtonStyle);
@@ -53,11 +77,11 @@ public class MasterController implements Initializable {
      */
     @FXML
     public void close (MouseEvent event) {
+        logger.info("Program bezárásának megkezdése.");
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.close();
         Platform.exit();
         System.exit(0);
-
     }
 
     /**
@@ -115,16 +139,23 @@ public class MasterController implements Initializable {
         } catch (IOException ex) {
             logger.error("Oldal megjelenítési hiba.");
         }
+        logger.info("Panel betöltve.");
         borderPane.setCenter(tp);
     }
 
+    /**
+     * A paraméterként kapott objektum főpanelre történő betöltését végzi.
+     *
+     * @param ui panel megnevezése
+     */
     private void loadCenter(String ui){
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/view/" +ui+".fxml"));
-        } catch (IOException e) {
-
+        } catch (Exception e) {
+            logger.error("Panel betöltési hiba!");
         }
+        logger.info("Panel betöltve.");
         borderPane.setCenter(root);
     }
 
@@ -138,5 +169,6 @@ public class MasterController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadCenter("HomeView");
+        logger.info("Panel betöltve.");
     }
 }

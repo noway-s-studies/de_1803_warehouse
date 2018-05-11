@@ -12,7 +12,9 @@ import java.util.ResourceBundle;
  *
  */
 public class ErrorController implements Initializable {
-
+    /**
+     * Logger osztály egy példánya.
+     */
     private static Logger logger = LoggerFactory.getLogger(ErrorController.class);
 
     @Override

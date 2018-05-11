@@ -12,15 +12,33 @@ import java.util.Date;
 @Entity
 public class UnitPrice {
 
+    /**
+     * Az egységár egyedi azonosítója. Autómatikusan generált.
+     */
     @Id
     @GeneratedValue
     private Long id;
+    /**
+     * Az egységár betöltésének ideje.
+     */
     private Date recorded;
+    /**
+     * Az egységár státusza.
+     */
     private boolean status;
+    /**
+     * Az egységárhoz kapcsolódó beszerző objektum.
+     */
     @ManyToOne
     private Purveyor purveyor;
+    /**
+     * Az egységárhoz kapcsolódó áru objektum.
+     */
     @ManyToOne
     private Product product;
+    /**
+     * Az egységár mennyisége.
+     */
     private int price;
 
     /**
