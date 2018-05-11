@@ -22,9 +22,37 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Az árukészlet megjelenítéséért felelős osztály.
+ *
+ */
 public class StockController implements Initializable {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    /**
+     * Itt kerül inicializálásra az árukészlet panel.
+     * A megjelenő táblázat adatai trölődnek majd a lekérdezett adatokkal feltöltésre kerülnek.
+     * Beállításra kerül a beviteli mező korlátozásainak figyelése.
+     *
+     * @param location inicializálás URL objektuma
+     * @param resources inicializálás ResourceBundle objektuma
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        pm = new StockModel();
+        table.getColumns().removeAll();
+        updateTableData();
+        new TextListenerUtil().numberMaxMinTextFieldListener(inputQuantity, 0,999999999);
+        table.setOnMouseClicked((MouseEvent event) -> {
+            log.info("Táblázat sorának megjelölése.");
+            editedRow();
+        });
+        loadProduct();
+        loadPurveyor();
+        loadPlace();
+        loadUnitPrice();
+    }
+
+    private static Logger log = LoggerFactory.getLogger(StockController.class);
     private StockModel pm;
     private ObservableList<Stock> data = FXCollections.observableArrayList();
     private Stock selectedStock = null;
@@ -35,40 +63,20 @@ public class StockController implements Initializable {
     private PurveyorModel purveyorModel;
     private ProductModel productModel;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        pm = new StockModel();
-        table.getColumns().removeAll();
-        updateTableData();
-        new TextListenerUtil().numberMaxMinTextFieldListener(inputQuantity, 0,999999999);
-        table.setOnMouseClicked((MouseEvent event) -> {
-            editedRow();
-        });
-        loadProduct();
-        loadPurveyor();
-        loadPlace();
-        loadUnitPrice();
-    }
-
     @FXML
     TableView table;
-
     private ObservableList<String> purveyorList = FXCollections.observableArrayList();
     @FXML
     ComboBox comboBoxPurveyor;
-
     private ObservableList<String> productList = FXCollections.observableArrayList();
     @FXML
     ComboBox comboBoxProduct;
-
     private ObservableList<String> placeList = FXCollections.observableArrayList();
     @FXML
     ComboBox comboBoxPlace;
-
     private ObservableList<String> unitPriceList = FXCollections.observableArrayList();
     @FXML
     ComboBox comboBoxUnitPrice;
-
     @FXML
     TextField inputQuantity;
     @FXML
@@ -90,8 +98,15 @@ public class StockController implements Initializable {
     @FXML
     private TableColumn<Stock, Number> quantityColumn = null;
 
+    /**
+     * Egérkattintást kezelő metódus, használatával a beviteli mezők értékei
+     * törlődnek és a gombok láthatósága alapállapotba kerül.
+     *
+     * @param event egéresemény aktuális eseményobjektuma
+     */
     @FXML
     public void actionCleanStockTextField(MouseEvent event){
+        log.info("Gomb használva: Takarít.");
         clearInputBox();
         cleanStockTextFieldButton.setVisible(true);
         addStockButton.setVisible(true);
@@ -100,63 +115,93 @@ public class StockController implements Initializable {
         selectedStock = null;
     }
 
+    /**
+     * Beviteli mezők értékeinek törlését végző metódus.
+     */
     private void clearInputBox() {
         comboBoxPurveyor.setValue(null);
         comboBoxProduct.setValue(null);
         comboBoxPlace.setValue(null);
         comboBoxUnitPrice.setValue(null);
         inputQuantity.clear();
+        log.info("Beviteli mezők törölve.");
     }
 
+    /**
+     * Beviteli mező beállítása beszerzői adatok lekérdezésével.
+     */
     private void loadPurveyor(){
         purveyorList.removeAll(purveyorList);
         List<String> actualPurveyorNameList = new PurveyorModel().getPurveyorName();
         purveyorList.addAll(actualPurveyorNameList);
         comboBoxPurveyor.getItems().addAll(purveyorList);
-
+        log.info("Beviteli mezők frissítése beszerzői adatokkal.");
     }
 
+    /**
+     * Beviteli mező beállítása áru adatok lekérdezésével.
+     */
     private void loadProduct(){
         productList.removeAll(productList);
         List<String> actualProductNameList = new ProductModel().getProductName();
         purveyorList.addAll(actualProductNameList);
         comboBoxProduct.getItems().addAll(purveyorList);
-
+        log.info("Beviteli mezők frissítése áru adatokkal.");
     }
 
+    /**
+     * Beviteli mező beállítása telephely adatok lekérdezésével.
+     */
     private void loadPlace(){
         placeList.removeAll(placeList);
         List<String> actualPlaceNameList = new PlaceModel().getPlaceName();
         placeList.addAll(actualPlaceNameList);
         comboBoxPlace.getItems().addAll(placeList);
-
+        log.info("Beviteli mezők frissítése telephely adatokkal.");
     }
 
+    /**
+     * Beviteli mező beállítása egységár adatok lekérdezésével.
+     */
     private void loadUnitPrice(){
         unitPriceList.removeAll(unitPriceList);
         List<String> actualUnitPriceNameList = new UnitPriceModel().getUnitPriceName();
         unitPriceList.addAll(actualUnitPriceNameList);
         comboBoxUnitPrice.getItems().addAll(unitPriceList);
-
+        log.info("Beviteli mezők frissítése egységár adatokkal.");
     }
 
+    /**
+     * Egérkattintást kezelő metódus, használatával törlésre kerül
+     * a kiválasztott árukészlet objektum és frissül a táblázat.
+     *
+     * @param event egéresemény aktuális eseményobjektuma
+     */
     @FXML
     public void actionDelStockContact(MouseEvent event){
+        log.info("Gomb használva: Töröl.");
         if (selectedStock != null){
             pm.removeStock(selectedStock);
             actionCleanStockTextField(event);
             updateTableData();
+            log.info("Telephely törölve.");
         }
     }
 
+    /**
+     * Egérkattintást kezelő metódus, használatával törlésre kerül
+     * a kiválasztott árukészlet objektum.
+     *
+     * @param event egéresemény aktuális eseményobjektuma
+     */
     @FXML
     public void actionModStockContact(MouseEvent event){
+        log.info("Gomb használva: Módosítás.");
         purveyor = new Purveyor();
         product = new Product();
         place = new Place();
         unitPrice = new UnitPrice();
         if (selectedStock != null){
-
             long purveyorId = 0;
             List<Purveyor> pul = new PurveyorModel().getPurveyor();
             for (Purveyor list : pul) {
@@ -171,7 +216,6 @@ public class StockController implements Initializable {
                     productId = list.getId();
                 }
             }
-
             long placeId = 0;
             List<Place> pll = new PlaceModel().getPlace();
             for (Place list : pll) {
@@ -191,24 +235,29 @@ public class StockController implements Initializable {
             selectedStock.setPlace(place.findPlace(placeId));
             selectedStock.setUnitPrice(unitPrice.findUnitPrice(unitPriceId));
             selectedStock.setQuantity(Integer.parseInt(inputQuantity.getText().trim()));
-
             pm.modStock(selectedStock);
             actionCleanStockTextField(event);
             updateTableData();
+            log.info("Árukészlet adatai módosítva.");
         }
     }
 
+    /**
+     * Egérkattintást kezelő metódus, használatával tárolásra kerül
+     * a mezőkben rögzített adatokból létrehozott árukészlet objektum.
+     *
+     * @param event egéresemény aktuális eseményobjektuma
+     */
     @FXML
     public void actionAddStockContact(MouseEvent event){
+        log.info("Gomb használva: Hozzáadás.");
         purveyor = new Purveyor();
         product = new Product();
         place = new Place();
         unitPrice = new UnitPrice();
-
         if (comboBoxPurveyor.getValue() != null && comboBoxProduct.getValue() != null
                 && comboBoxPlace.getValue() != null && comboBoxUnitPrice.getValue() != null
                 && inputQuantity != null){
-
             long purveyorId = 0;
             List<Purveyor> pul = new PurveyorModel().getPurveyor();
             for (Purveyor list : pul) {
@@ -223,7 +272,6 @@ public class StockController implements Initializable {
                     productId = list.getId();
                 }
             }
-
             long placeId = 0;
             List<Place> pll = new PlaceModel().getPlace();
             for (Place list : pll) {
@@ -238,7 +286,6 @@ public class StockController implements Initializable {
                     unitPriceId = list.getId();
                 }
             }
-
             Stock newStock = new Stock(
                     purveyor.findPurveyor(purveyorId),
                     product.findProduct(productId),
@@ -249,20 +296,20 @@ public class StockController implements Initializable {
             data.add(newStock);
             pm.addStock(newStock);
             clearInputBox();
-            log.info("Új árukészlet betőltve");
+            log.info("Árukészlet betőltve.");
         }
     }
 
+    /**
+     * Táblázat adatait frissítő metódus.
+     */
     private void updateTableData() {
-
         purveyor = new Purveyor();
         product = new Product();
         purveyorModel = new PurveyorModel();
         productModel = new ProductModel();
-
         table.getItems().clear();
         table.getColumns().clear();
-
         purveyorColumn = new TableColumn("Beszerző");
         purveyorColumn.setMinWidth(200);
         productColumn = new TableColumn("Áru");
@@ -273,7 +320,6 @@ public class StockController implements Initializable {
         unitPriceColumn.setMinWidth(100);
         quantityColumn = new TableColumn("Mennyiség");
         quantityColumn.setMinWidth(100);
-
         purveyorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         purveyorColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, String>, ObservableValue<String>>() {
             @Override
@@ -281,7 +327,6 @@ public class StockController implements Initializable {
                 return new SimpleStringProperty(param.getValue().getPurveyor().getLabel());
             }
         });
-
         productColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         productColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, String>, ObservableValue<String>>() {
             @Override
@@ -289,7 +334,6 @@ public class StockController implements Initializable {
                 return new SimpleStringProperty(param.getValue().getProduct().getLabel());
             }
         });
-
         placeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         placeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, String>, ObservableValue<String>>() {
             @Override
@@ -297,7 +341,6 @@ public class StockController implements Initializable {
                 return new SimpleStringProperty(param.getValue().getPlace().getLabel());
             }
         });
-
         unitPriceColumn.setCellFactory(TextFieldTableCell.<Stock, Number>forTableColumn(new NumberStringConverter()));
         unitPriceColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, Number>, ObservableValue<Number>>() {
             @Override
@@ -305,7 +348,6 @@ public class StockController implements Initializable {
                 return new SimpleIntegerProperty(param.getValue().getUnitPrice().getPrice());
             }
         });
-
         quantityColumn.setCellFactory(TextFieldTableCell.<Stock, Number>forTableColumn(new NumberStringConverter()));
         quantityColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stock, Number>, ObservableValue<Number>>() {
             @Override
@@ -313,12 +355,16 @@ public class StockController implements Initializable {
                 return new SimpleIntegerProperty(param.getValue().getQuantity());
             }
         });
-
         table.getColumns().addAll(purveyorColumn, productColumn, placeColumn, unitPriceColumn, quantityColumn);
         data.addAll(pm.getStock());
         table.setItems(data);
+        log.info("Táblázat adatai frissítésre kerültek.");
     }
 
+    /**
+     * Táblázat sorának kiválasztását kezelő metódis.
+     * A kiválasztott sor adatait beviteli mezőbe másolja és szerkesztési gombokra vált.
+     */
     public void editedRow() {
         if (table.getSelectionModel().getSelectedItem() != null) {
             selectedStock = (Stock) table.getSelectionModel().getSelectedItem();
@@ -331,6 +377,7 @@ public class StockController implements Initializable {
             comboBoxPlace.setValue(selectedStock.getPlace().getLabel());
             comboBoxUnitPrice.setValue(selectedStock.getUnitPrice().getPrice());
             inputQuantity.setText(String.valueOf(selectedStock.getQuantity()));
+            log.info("Táblázat adatai beviteli mezőkbe másolódtak.");
         }
     }
 }

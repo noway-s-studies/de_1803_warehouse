@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class PlaceModel  implements AutoCloseable {
 
-    private static Logger logger = LoggerFactory.getLogger(EntityManagerFactoryUtil.class);
+    private static Logger logger = LoggerFactory.getLogger(PlaceModel.class);
     private EntityManager entityManager;
 
     /**
@@ -95,7 +95,7 @@ public class PlaceModel  implements AutoCloseable {
     /**
      * Telephely adatainak torlése.
      *
-     * @param Place törölésre szánt telephely osztály egy példánya
+     * @param Place törlésre szánt telephely osztály egy példánya
      */
     public void removePlace(Place Place) {
         try {

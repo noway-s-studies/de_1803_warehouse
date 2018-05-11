@@ -4,13 +4,23 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.io.FileNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
 
+/**
+ * PDF fájl létrehozásáért felelős osztály.
+ */
 public class PdfExportUtil {
 
+    private static Logger logger = LoggerFactory.getLogger(PdfExportUtil.class);
+
+    /**
+     * PDF fájl létrehozása a őaraméterként kapott adatok segítségével.
+     *
+     * @param fName fájl neve
+     * @param text fájlban megjelenő adatok
+     */
     public void pdfGenerator(String fName, PdfPTable text){
         Document document = new Document();
         try {
@@ -21,22 +31,12 @@ public class PdfExportUtil {
             topLogo.setAbsolutePosition(250f,720f);
             document.add(topLogo);
             document.add(new Paragraph("\n\n\n\n\n\n"));
-
             document.add(text);
-
             Chunk signo = new Chunk("Ez a raktárkészlet nyilvántartó program által generált PDF fájl.");
             document.add(new Paragraph("\n\n\n\n"+signo, FontFactory.getFont("Betűtípus", BaseFont.IDENTITY_H,BaseFont.EMBEDDED)));
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (BadElementException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            e.printStackTrace();
+            logger.info("PDF fájl mentése sikeres.");
+        } catch (Exception ex) {
+            logger.error("PDF fájl létrehozásánál hiba lépett fel.");
         }
         document.close();
     }

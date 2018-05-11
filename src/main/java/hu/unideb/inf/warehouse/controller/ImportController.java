@@ -5,19 +5,33 @@ import hu.unideb.inf.warehouse.pojo.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Az adatok betöltéséért felelős osztály.
+ */
 public class ImportController {
+
+    private static Logger logger = LoggerFactory.getLogger(ImportController.class);
     private ProductModel productModel = null;
 
+    /**
+     * Adatok betöltéséhez használt fájl neve.
+     */
     @FXML
     TextField importFileName;
 
+    /**
+     * Egérkattintást kezelő metódus, használatával betöltésre kerülnek a kiválasztott fájlban található adatok.
+     *
+     * @param event egéresemény aktuális eseményobjektuma
+     */
     @FXML
     public void importButtonClicked(MouseEvent event) {
-
         if (importFileName.getText() != null && importFileName.getText().length() > 0) {
             productModel = new ProductModel();
             try {
@@ -30,9 +44,10 @@ public class ImportController {
                     productModel.addProduct(new Product(label,unitLabel));
                 }
             } catch (Exception ex){
-                System.out.println("Fálj beolvasási hiba:\n"+ex);
+                logger.error("Adatbetöltés nem sikerült, fálj beolvasási hiba.");
             }
+        } else {
+            logger.info("Adatbetöltés nem sikerült, nincs megadva a fájl neve.");
         }
     }
 }
-

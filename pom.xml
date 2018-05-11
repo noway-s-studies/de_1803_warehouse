@@ -217,16 +217,6 @@
     </dependencies>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
-            </plugin>
-            <plugin>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-                <version>1.7.25</version>
-            </plugin>
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-enforcer-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

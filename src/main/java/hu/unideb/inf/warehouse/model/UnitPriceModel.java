@@ -5,6 +5,8 @@ import hu.unideb.inf.warehouse.pojo.UnitPrice;
 import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,34 +16,58 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Az egységár adatait kezelő osztály.
+ *
+ */
 public class UnitPriceModel implements AutoCloseable {
 
+    private static Logger logger = LoggerFactory.getLogger(UnitPriceModel.class);
     private EntityManager entityManager;
 
+    /**
+     * Az egységár adatait kezelő osztály példányosítása, adatbáziskapcsolat felépítése.
+     *
+     */
     public UnitPriceModel() {
         this.entityManager  = new EntityManagerFactoryUtil().getEntityManager();
     }
 
+    /**
+     * Új egységár hozzáadása.
+     *
+     * @param UnitPrice hozzáadásra szánt egységár osztály egy példánya
+     */
     public void addUnitPrice(UnitPrice UnitPrice) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(UnitPrice);
             entityManager.getTransaction().commit();
         } catch (Exception ex){
-            System.out.println("Hiba a/az '"+UnitPrice.getClass().toString()+"' osztály adatainak betöltésekor:\n");
+            logger.error("Hiba az adatatok betöltésekor: "+ex);
         }
     }
 
+    /**
+     * Az egységár adatainak módosítása.
+     *
+     * @param UnitPrice módosításra szánt egységár osztály egy példánya
+     */
     public void modUnitPrice(UnitPrice UnitPrice) {
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(UnitPrice);
             entityManager.getTransaction().commit();
         } catch (Exception ex){
-            System.out.println("Hiba a/az '"+UnitPrice.getClass().toString()+"' osztály adatainak betöltésekor:\n");
+            logger.error("Hiba az adatatok módosításakor: "+ex);
         }
     }
 
+    /**
+     * Az egységár adatainak listába rendezett lekérdezése.
+     *
+     * @return egységárak adatainak listálya
+     */
     public List<UnitPrice> getUnitPrice() {
         List<UnitPrice> list = null;
         try {
@@ -49,11 +75,16 @@ public class UnitPriceModel implements AutoCloseable {
                     "SELECT u FROM UnitPrice u", UnitPrice.class);
             list = query.getResultList();
         } catch (Exception ex){
-            System.out.println("Hiba az 'Egységár' adatainak lekérdezésekor:\n" + ex);
+            logger.error("Hiba az adatatok lekérésekor: "+ex);
         }
         return list;
     }
 
+    /**
+     * Az egységár megnevezés adatainak listába rendezett lekérdezése.
+     *
+     * @return egységár megnevezés adatainak listálya
+     */
     public List<String> getUnitPriceName() {
         List<String> list = null;
         try {
@@ -61,20 +92,29 @@ public class UnitPriceModel implements AutoCloseable {
                     "SELECT price FROM UnitPrice");
             list = query.getResultList();
         } catch (Exception ex){
-            System.out.println("Hiba az 'Áru' adatainak lekérdezéskor:\n" + ex);
+            logger.error("Hiba az adatatok lekérésekor: "+ex);
         }
         return list;
     }
+
+    /**
+     * Az egységár adatainak torlése.
+     *
+     * @param UnitPrice törlésre szánt egységár osztály egy példánya
+     */
     public void removeUnitPrice(UnitPrice UnitPrice) {
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(entityManager.find(UnitPrice.class, UnitPrice.getId()));
             entityManager.getTransaction().commit();
         } catch (Exception ex){
-            System.out.println("Hiba az 'Egységár' adatainak törlésekor:\n" + ex);
+            logger.error("Hiba az adatatok törlésekor: "+ex);
         }
     }
 
+    /**
+     * Adatbáziskapcsolat lezárása.
+     */
     @Override
     public void close() {
         this.entityManager.close();

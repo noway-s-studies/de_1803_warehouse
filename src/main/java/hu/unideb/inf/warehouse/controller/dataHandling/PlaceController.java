@@ -21,14 +21,20 @@ import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * A telephelyek megjelenítéséért felelős osztály.
+ *
+ */
 public class PlaceController implements Initializable {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private PlaceModel pm;
-    private ObservableList<Place> data = FXCollections.observableArrayList();
-    private Place selectedPlace = null;
-
-
+    /**
+     * Itt kerül inicializálásra a telephelyek panel.
+     * A megjelenő táblázat adatai trölődnek majd a lekérdezett adatokkal feltöltésre kerülnek.
+     * Beállításra kerül a beviteli mező korlátozásainak figyelése.
+     *
+     * @param location inicializálás URL objektuma
+     * @param resources inicializálás ResourceBundle objektuma
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pm = new PlaceModel();
@@ -36,9 +42,15 @@ public class PlaceController implements Initializable {
         updateTableData();
         new TextListenerUtil().numberMaxMinTextFieldListener(inputWeighting, 0,100);
         table.setOnMouseClicked((MouseEvent event) -> {
+            log.info("Táblázat sorának megjelölése.");
             editedRow();
         });
     }
+
+    private static Logger log = LoggerFactory.getLogger(PlaceController.class);
+    private PlaceModel pm;
+    private ObservableList<Place> data = FXCollections.observableArrayList();
+    private Place selectedPlace = null;
 
     @FXML
     TableView table;
@@ -63,8 +75,15 @@ public class PlaceController implements Initializable {
     @FXML
     private TableColumn<Place, Number> weightingColumn = null;
 
+    /**
+     * Egérkattintást kezelő metódus, használatával a beviteli mezők értékei
+     * törlődnek és a gombok láthatósága alapállapotba kerül.
+     *
+     * @param event egéresemény aktuális eseményobjektuma
+     */
     @FXML
     public void actionCleanPlaceTextField(MouseEvent event){
+        log.info("Gomb használva: Takarít.");
         clearInputBox();
         cleanPlaceTextFieldButton.setVisible(true);
         addPlaceButton.setVisible(true);
@@ -73,36 +92,62 @@ public class PlaceController implements Initializable {
         selectedPlace = null;
     }
 
+    /**
+     * Beviteli mezők értékeinek törlését végző metódus.
+     */
     private void clearInputBox() {
         inputLabel.clear();
         inputWeighting.clear();
         inputAvailability.clear();
+        log.info("Beviteli mezők törölve.");
     }
 
+    /**
+     * Egérkattintást kezelő metódus, használatával törlésre kerül
+     * a kiválasztott telephely objektum és frissül a táblázat.
+     *
+     * @param event egéresemény aktuális eseményobjektuma
+     */
     @FXML
     public void actionDelPlaceContact(MouseEvent event){
+        log.info("Gomb használva: Töröl.");
         if (selectedPlace != null){
             pm.removePlace(selectedPlace);
             actionCleanPlaceTextField(event);
             updateTableData();
+            log.info("Telephely törölve.");
         }
     }
 
+    /**
+     * Egérkattintást kezelő metódus, használatával törlésre kerül
+     * a kiválasztott telephely objektum.
+     *
+     * @param event egéresemény aktuális eseményobjektuma
+     */
     @FXML
     public void actionModPlaceContact(MouseEvent event){
+        log.info("Gomb használva: Módosítás.");
         if (selectedPlace != null){
             selectedPlace.setLabel(inputLabel.getText());
             selectedPlace.setAvailability(inputAvailability.getText());
             selectedPlace.setWeighting(Integer.parseInt(inputWeighting.getText().trim()));
-
             pm.modPlace(selectedPlace);
             actionCleanPlaceTextField(event);
             updateTableData();
+            log.info("Telephely adatai módosítva.");
         }
     }
 
+    /**
+     * Egérkattintást kezelő metódus, használatával tárolásra kerül
+     * a mezőkben rögzített adatokból létrehozott telephely objektum.
+     *
+     * @param event egéresemény aktuális eseményobjektuma
+     */
     @FXML
     public void actionAddPlaceContact(MouseEvent event){
+        log.info("Gomb használva: Hozzáadás.");
         if (inputLabel != null && inputAvailability != null && inputWeighting != null){
             Place newPureyor = new Place(
                     inputLabel.getText(),
@@ -112,21 +157,22 @@ public class PlaceController implements Initializable {
             data.add(newPureyor);
             pm.addPlace(newPureyor);
             clearInputBox();
-            log.info("Új beszerzőt betőltve");
+            log.info("Telephely betőltve.");
         }
     }
 
+    /**
+     * Táblázat adatait frissítő metódus.
+     */
     private void updateTableData() {
         table.getItems().clear();
         table.getColumns().clear();
-
         labelColumn = new TableColumn("Megnevezés");
         labelColumn.setMinWidth(200);
         addressColumn = new TableColumn("Elérhetőség");
         addressColumn.setMinWidth(100);
         weightingColumn = new TableColumn("Súlyozás");
         weightingColumn.setMinWidth(100);
-
         labelColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         labelColumn.setCellValueFactory(new PropertyValueFactory<Place, String>("label"));
         addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -141,8 +187,13 @@ public class PlaceController implements Initializable {
         table.getColumns().addAll(labelColumn, addressColumn, weightingColumn);
         data.addAll(pm.getPlace());
         table.setItems(data);
+        log.info("Táblázat adatai frissítésre kerültek.");
     }
 
+    /**
+     * Táblázat sorának kiválasztását kezelő metódis.
+     * A kiválasztott sor adatait beviteli mezőbe másolja és szerkesztési gombokra vált.
+     */
     public void editedRow() {
         if (table.getSelectionModel().getSelectedItem() != null) {
             selectedPlace = (Place) table.getSelectionModel().getSelectedItem();
@@ -153,6 +204,7 @@ public class PlaceController implements Initializable {
             inputLabel.setText(selectedPlace.getLabel());
             inputAvailability.setText(selectedPlace.getAvailability());
             inputWeighting.setText(String.valueOf(selectedPlace.getWeighting()));
+            log.info("Táblázat adatai beviteli mezőkbe másolódtak.");
         }
     }
 }
