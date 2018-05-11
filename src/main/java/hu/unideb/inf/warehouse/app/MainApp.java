@@ -13,6 +13,7 @@ import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -41,8 +42,9 @@ public class MainApp extends Application {
             stage.initStyle(StageStyle.TRANSPARENT);
             scene.getStylesheets().add(getClass().getResource("/styles/masterStyle.css").toExternalForm());
             stage.show();
+            logger.info("Alkalmazás indítása sikeres");
         } catch (Exception ex) {
-            logger.error("Alkalmazás felállítási hiba:\n"+ex);
+            logger.error("Alkalmazás indítási hiba:\n"+ex);
         }
     }
 
