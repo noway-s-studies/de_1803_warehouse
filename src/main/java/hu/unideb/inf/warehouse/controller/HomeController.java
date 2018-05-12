@@ -10,6 +10,6 @@ public class HomeController {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger logger = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 }

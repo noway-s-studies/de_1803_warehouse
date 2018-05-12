@@ -25,7 +25,7 @@ public class MasterController implements Initializable {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger logger = LoggerFactory.getLogger(MasterController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
     /**
      * Alapértelmezett főmenü gomb stílus.
      */

@@ -10,12 +10,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 import java.io.IOException;
 import java.util.Scanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Alkalmazás indító osztály.
@@ -24,7 +22,7 @@ public class MainApp extends Application {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger logger = LoggerFactory.getLogger(MainApp.class);
+    private static final Logger logger = LoggerFactory.getLogger(MainApp.class);
     /**
      * Adatbázis hozzáférés jelszava.
      */

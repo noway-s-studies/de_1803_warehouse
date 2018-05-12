@@ -18,7 +18,7 @@ public class ImportController {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger logger = LoggerFactory.getLogger(ImportController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ImportController.class);
     /**
      * A ProductModel osztály egy példánya.
      */

@@ -56,7 +56,7 @@ public class UnitPriceController implements Initializable {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger log = LoggerFactory.getLogger(UnitPriceController.class);
+    private static final Logger log = LoggerFactory.getLogger(UnitPriceController.class);
     /**
      * UnitPriceModel osztály egy példánya.
      */

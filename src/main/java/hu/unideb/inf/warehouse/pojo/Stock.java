@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Egy árukészletet reprezentáló osztály.
@@ -25,7 +25,7 @@ public class Stock {
     /**
      * Az árukészlet státusza.
      */
-    private Date recorded;
+    private LocalDateTime recorded;
     /**
      * Az árukészlet megnevezése. Egyedi azonosító.
      */
@@ -77,7 +77,7 @@ public class Stock {
                  UnitPrice unitPrice,
                  int quantity) {
         this.status = true;
-        this.recorded = new Date();
+        this.recorded = LocalDateTime.now();
         this.purveyor = purveyor;
         this.product = product;
         this.place = place;
@@ -99,7 +99,7 @@ public class Stock {
      *
      * @return rögzítési dátum
      */
-    public Date getRecorded() {
+    public LocalDateTime getRecorded() {
         return recorded;
     }
 

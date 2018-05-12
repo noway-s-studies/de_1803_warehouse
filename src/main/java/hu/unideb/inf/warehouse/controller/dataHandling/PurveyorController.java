@@ -49,7 +49,7 @@ public class PurveyorController implements Initializable {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger log = LoggerFactory.getLogger(PurveyorController.class);
+    private static final Logger log = LoggerFactory.getLogger(PurveyorController.class);
     /**
      * PurveyorModel osztály egy példánya.
      */

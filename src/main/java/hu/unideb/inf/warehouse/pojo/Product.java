@@ -3,7 +3,7 @@ package hu.unideb.inf.warehouse.pojo;
 import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Egy árut reprezentáló osztály.
@@ -20,7 +20,7 @@ public class Product {
     /**
      * Az áru betöltésének ideje.
      */
-    private Date recorded;
+    private LocalDateTime recorded;
     /**
      * Az áru státusza.
      */
@@ -52,7 +52,7 @@ public class Product {
      */
     public Product(String label, String unitLabel) {
         this.status = true;
-        this.recorded = new Date();
+        this.recorded = LocalDateTime.now();
         this.label = label;
         this.unitLabel = unitLabel;
     }
@@ -81,7 +81,7 @@ public class Product {
      *
      * @return rögzítési dátum
      */
-    public Date getRecorded() {
+    public LocalDateTime getRecorded() {
         return recorded;
     }
 

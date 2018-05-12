@@ -42,7 +42,7 @@ public class ProductController implements Initializable {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger log = LoggerFactory.getLogger(ProductController.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
     /**
      * ProductModel osztály egy példánya.
      */

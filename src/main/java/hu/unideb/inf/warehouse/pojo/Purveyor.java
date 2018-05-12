@@ -3,7 +3,7 @@ package hu.unideb.inf.warehouse.pojo;
 import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Egy beszerzőt reprezentáló osztály.
@@ -20,7 +20,7 @@ public class Purveyor {
     /**
      * A beszerző betöltésének ideje.
      */
-    private Date recorded;
+    private LocalDateTime recorded;
     /**
      * A beszerző státusza.
      */
@@ -57,7 +57,7 @@ public class Purveyor {
      */
     public Purveyor(String label, String availability, int discount) {
         this.status = true;
-        this.recorded = new Date();
+        this.recorded = LocalDateTime.now();
         this.label = label;
         this.availability = availability;
         this.discount = discount;
@@ -87,7 +87,7 @@ public class Purveyor {
      *
      * @return rögzítési dátum
      */
-    public Date getRecorded() {
+    public LocalDateTime getRecorded() {
         return recorded;
     }
 

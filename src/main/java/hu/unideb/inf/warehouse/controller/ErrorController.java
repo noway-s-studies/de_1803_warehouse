@@ -15,7 +15,7 @@ public class ErrorController implements Initializable {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger logger = LoggerFactory.getLogger(ErrorController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ErrorController.class);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

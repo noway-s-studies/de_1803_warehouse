@@ -18,7 +18,7 @@ public class PurveyorModel implements AutoCloseable {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger logger = LoggerFactory.getLogger(PurveyorModel.class);
+    private static final Logger logger = LoggerFactory.getLogger(PurveyorModel.class);
     /**
      * EntityManager osztály egy példánya az adatbáziskapcsolat felépítéséhez.
      */

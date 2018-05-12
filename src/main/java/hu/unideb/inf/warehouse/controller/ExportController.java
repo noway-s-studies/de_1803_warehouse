@@ -23,7 +23,7 @@ public class ExportController {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger logger = LoggerFactory.getLogger(ExportController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExportController.class);
     /**
      * A PurveyorModel osztály egy példánya.
      */

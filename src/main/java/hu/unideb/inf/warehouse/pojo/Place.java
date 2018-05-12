@@ -3,7 +3,7 @@ package hu.unideb.inf.warehouse.pojo;
 import hu.unideb.inf.warehouse.utility.EntityManagerFactoryUtil;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Egy telephelyet reprezentáló osztály.
@@ -20,7 +20,7 @@ public class Place {
     /**
      * Telephely betöltésének ideje.
      */
-    private Date recorded;
+    private LocalDateTime recorded;
     /**
      * Telephely státusza.
      */
@@ -57,7 +57,7 @@ public class Place {
      */
     public Place(String label, String availability, int weighting) {
         this.status = true;
-        this.recorded = new Date();
+        this.recorded = LocalDateTime.now();
         this.label = label;
         this.availability = availability;
         this.weighting = weighting;
@@ -87,7 +87,7 @@ public class Place {
      *
      * @return rögzítési dátum
      */
-    public Date getRecorded() {
+    public LocalDateTime getRecorded() {
         return recorded;
     }
 

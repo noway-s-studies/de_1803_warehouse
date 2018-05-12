@@ -18,7 +18,7 @@ public class ProductModel  implements AutoCloseable {
     /**
      * Logger osztály egy példánya.
      */
-    private static Logger logger = LoggerFactory.getLogger(ProductModel.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductModel.class);
     /**
      * EntityManager osztály egy példánya az adatbáziskapcsolat felépítéséhez.
      */
