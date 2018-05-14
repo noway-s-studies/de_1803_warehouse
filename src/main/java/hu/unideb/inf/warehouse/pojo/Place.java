@@ -35,7 +35,7 @@ public class Place {
      */
     private String availability;
     /**
-     * Telephely sújozása.
+     * Telephely súlyozása.
      */
     private int weighting;
     /**

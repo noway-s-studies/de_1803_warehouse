@@ -8,7 +8,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
-<Tab text="     Áru     " closable="false" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.warehouse.controller.dataHandling.ProductController">
+<Tab text="     Áru     " closable="false" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
+     fx:controller="hu.unideb.inf.warehouse.controller.dataHandling.ProductController">
    <content>
       <AnchorPane prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
          <children>

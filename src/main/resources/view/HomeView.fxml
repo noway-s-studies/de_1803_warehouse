@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.warehouse.controller.HomeController">
+<AnchorPane prefHeight="515.0" prefWidth="700.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.warehouse.controller.HomeController">
    <children>
-      <Text fill="#a18181" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" />
+      <Label layoutX="450.0" layoutY="14.0" text="Raktárkészlet értéke" textFill="#e5e5e5">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label id="sumValue" fx:id="sumValue" alignment="CENTER" layoutX="400.0" layoutY="45.0" prefHeight="36.0" prefWidth="285.0" style="-fx-background-color: #610B0B;" textFill="#ffa229">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
-</HBox>
+</AnchorPane>
