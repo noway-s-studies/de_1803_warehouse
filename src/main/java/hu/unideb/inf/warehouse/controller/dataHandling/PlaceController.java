@@ -48,19 +48,19 @@ public class PlaceController implements Initializable {
     }
 
     /**
-     * Logger osztály egy példánya.
+     * {@link Logger} osztály egy példánya.
      */
     private static final Logger log = LoggerFactory.getLogger(PlaceController.class);
     /**
-     * PlaceModel osztály egy példánya.
+     * {@link PlaceModel} osztály egy példánya.
      */
     private PlaceModel pm;
     /**
-     * A Place osztály elemeinek listája.
+     * A {@link Place} osztály elemeinek listája.
      */
     private ObservableList<Place> data = FXCollections.observableArrayList();
     /**
-     * A Place osztály táblázatban megjelölt eleme.
+     * A {@link Place} osztály táblázatban megjelölt eleme.
      */
     private Place selectedPlace = null;
     /**
@@ -105,16 +105,19 @@ public class PlaceController implements Initializable {
     private Button modPlaceButton;
     /**
      * TableColumn objektum egy példánya, táblázat oszlop a megnevezés megjelenítéséhez.
+     * Tartalma egy {@link Place} objektum elérhetőség adatát.
      */
     @FXML
     private TableColumn<Place, String> labelColumn = null;
     /**
      * TableColumn objektum egy példánya, táblázat oszlop az elérhetőség megjelenítéséhez.
+     * Tartalma egy {@link Place} objektum elérhetőség adatát.
      */
     @FXML
     private TableColumn<Place, String> addressColumn = null;
     /**
      * TableColumn objektum egy példánya, táblázat oszlop a súlyozás megjelenítéséhez.
+     * Tartalma egy {@link Place} objektum súlyozás adatát. Értéke {@code int}.
      */
     @FXML
     private TableColumn<Place, Number> weightingColumn = null;

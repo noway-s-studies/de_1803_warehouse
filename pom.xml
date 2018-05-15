@@ -7,7 +7,7 @@
     <groupId>hu.unideb.inf.pti</groupId>
     <inceptionYear>2018</inceptionYear>
     <artifactId>Warehouse</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
     <name>warehouse</name>
     <url>https://github.com/noway0032/warehouse</url>

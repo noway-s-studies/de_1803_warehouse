@@ -58,6 +58,14 @@ public class HomeController implements Initializable {
 
     }
 
+
+    /**
+     * Itt kerül inicializálásra a kezdőlap.
+     * Továbbá beállítódik a diagram és az összérték.
+     *
+     * @param location inicializálás URL objektuma
+     * @param resources inicializálás ResourceBundle objektuma
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         hm = new HomeModel();

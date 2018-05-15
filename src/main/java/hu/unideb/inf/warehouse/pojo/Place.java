@@ -93,7 +93,7 @@ public class Place {
 
     /**
      * Visszaadja a telephely státuszát.
-     * Ha igaz, a telephely aktív állapotú, rendelkezik raktárral.
+     * Ha <code>igaz</code>, a telephely aktív állapotú, rendelkezik raktárral.
      *
      * @return státusz
      */
