@@ -81,7 +81,7 @@ public class EntityManagerFactoryUtil implements AutoCloseable{
      *
      */
     @Override
-    public void close() throws Exception {
+    public void close() {
         if(entityManagerFactory != null){
             logger.info("Adatbázis kapcsolat szétkapcsolva!");
             entityManagerFactory.close();

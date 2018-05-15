@@ -37,6 +37,10 @@ public class ExportController {
      */
     @FXML
     TextField exportFileName;
+    /**
+     * Könyvtárbetöltő példány az adatok exportálásához használt fájl eléréséhez.
+     */
+    ClassLoader classLoader = getClass().getClassLoader();
 
     /**
      * Egérkattintást kezelő metódus, használatával mentésre kerülnek az exportálni kívánt adatok.

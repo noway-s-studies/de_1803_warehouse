@@ -6,6 +6,8 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
 import java.io.FileOutputStream;
 
 /**
@@ -16,6 +18,10 @@ public class PdfExportUtil {
      * Logger osztály egy példánya.
      */
     private static Logger logger = LoggerFactory.getLogger(PdfExportUtil.class);
+    /**
+     * Könyvtárbetöltő példány az adatok exportálásához használt fájl eléréséhez.
+     */
+    ClassLoader classLoader = getClass().getClassLoader();
 
     /**
      * PDF fájl létrehozása a őaraméterként kapott adatok segítségével.
@@ -26,7 +32,7 @@ public class PdfExportUtil {
     public void pdfGenerator(String fName, PdfPTable text){
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/export/" + fName + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(new File(fName +".pdf")));
             document.open();
             Image topLogo = Image.getInstance(getClass().getResource("/pic/logo512.png"));
             topLogo.scaleToFit(100,100);

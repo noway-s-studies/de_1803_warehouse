@@ -45,7 +45,9 @@ public class HomeController implements Initializable {
         this.sumValue.setText(hm.getSumValue());
     }
 
-
+    /**
+     * Raktárkészlet megoszlási diagram feltöltése adatokkal.
+     */
     public void chart() {
         valuePieChart.setData(new HomeModel().buildChartData());
         valuePieChart.setTitle("Telephelyek raktárkészlet megoszlása");

@@ -118,4 +118,5 @@ public class PurveyorModel implements AutoCloseable {
     public void close() {
         this.entityManager.close();
     }
+
 }

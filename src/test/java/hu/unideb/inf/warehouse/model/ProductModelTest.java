@@ -1,10 +1,7 @@
 package hu.unideb.inf.warehouse.model;
 
-import hu.unideb.inf.warehouse.pojo.Place;
 import hu.unideb.inf.warehouse.pojo.Product;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,90 +10,94 @@ import static org.junit.Assert.*;
 
 public class ProductModelTest {
 
-    ProductModel productModel01;
-    ProductModel productModel02;
-    Product product01;
-    Product product02;
-    Product product03;
-    Product productDb01;
-    Product productDb02;
-    Product productDb03;
-    String label01;
-    String label02;
-    String label03;
+    ProductModel productModel01 = new ProductModel();
+    Product product01 = new Product();
+    Product product02 = new Product();
+    Product product03 = new Product();
+    Product productDb01 = new Product();
+    Product productDb02 = new Product();
+    Product productDb03 = new Product();
+    String label01 = "";
+    String label02 = "";
+    String label03 = "";
+    String text = "\n";
 
 
-    @Before
-    public void init() {
-        productModel01 = new ProductModel();
+    @Test
+    public void initProductModelTest() {
         label01 = "TóróRudi_Test";
         label02 = "CocaCola_Test";
         label03 = "Tej_Test";
+
+        /**
+         * Product()
+         */
         product01 = new Product(label01, "1 darab");
         product02 = new Product(label02, "2,5 liter");
         product03 = new Product(label03, "1 liter");
 
-        productDb01 = new Product();
-        productDb02 = new Product();
-        productDb03 = new Product();
-
-    }
-    @Test
-    public void addProduct() {
+        /**
+         * addProduct()
+         */
         productModel01.addProduct(product01);
         productModel01.addProduct(product02);
         productModel01.addProduct(product03);
-    }
 
-    @Test
-    public void getProduct() {
+        /**
+         * getProduct()
+         */
         List<Product> productList = productModel01.getProduct();
         for (Product product : productList){
             if (product.getLabel().equals(label01)){
                 Assert.assertNotNull("Van id: " + product.getId(), product.getId());
                 productDb01 = product;
-                System.out.println(productDb01.getId()+" : "+productDb01.getUnitLabel());
+                text += "Id: "+product.getId()+", Label: "+product.getLabel() +", Mértékegység: "+product.getUnitLabel() +"\n";
             }
             if (product.getLabel().equals(label02)){
                 Assert.assertNotNull("Van id: " + product.getId(), product.getId());
                 productDb02 = product;
-                System.out.println(productDb02.getId()+" : "+productDb02.getUnitLabel());
+                text += "Id: "+product.getId()+", Label: "+product.getLabel() +", Mértékegység: "+product.getUnitLabel()+"\n";
             }
             if (product.getLabel().equals(label03)){
                 Assert.assertNotNull("Van id: " + product.getId(), product.getId());
                 productDb03 = product;
-                System.out.println(productDb03.getId()+" : "+productDb03.getUnitLabel());
+                text += "Id: "+product.getId()+", Label: "+product.getLabel() +", Mértékegység: "+product.getUnitLabel()+"\n";
             }
-
-
         }
-    }
 
-    @Test
-    public void modProduct() {
-//        productModel02 = new ProductModel();
-//        String newUL = "10 darabos csomag";
-//        productDb01.setUnitLabel(newUL);
-//        productModel01.modProduct(productDb01);
-//        List<Product> productList01 = productModel02.getProduct();
-//        for (Product product01 : productList01){
-//            if (product01.getLabel().equals(label01)){
-//                Assert.assertEquals("Módisított mértékegység.", product01.getUnitLabel(), newUL);
-//            }
-//        }
-    }
+        /**
+         * setStatus()
+         * getStatus()
+         * modProduct()
+         */
+        Assert.assertTrue("Van beállított státusz érték ami igaz.", productDb01.getStatus());
+        productDb01.setStatus(false);
+        productModel01.modProduct(productDb01);
+        List<Product> productList2 = productModel01.getProduct();
+        for (Product product : productList2){
+            if (product.getLabel().equals(label01)){
+                assertFalse("Beállított státusz érték hamis.", product.getStatus());
+                text += "Státusz mod: " + product.getStatus() + "\n";
+            }
+        }
 
-    @Test
-    public void getProductName() {
-    }
+        /**
+         * getProductName()
+         */
+        List<String> productList3 = productModel01.getProductName();
+        Assert.assertNotNull("Üress áru név lista", productList);
+        for (String label : productList3)
+            text += label + "\n";
 
-    @Test
-    public void removeProduct() {
-    }
-    @After
-    public void end() {
+        /**
+         * removeProduct()
+         */
         productModel01.removeProduct(productDb01);
         productModel01.removeProduct(productDb02);
         productModel01.removeProduct(productDb03);
+        List<String> productListEND = productModel01.getProductName();
+        Assert.assertTrue("Sikeres törlés", productListEND.size() == 0);
+
+        System.out.println(text);
     }
 }

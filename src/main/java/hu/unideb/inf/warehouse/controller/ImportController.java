@@ -20,6 +20,10 @@ public class ImportController {
      */
     private static final Logger logger = LoggerFactory.getLogger(ImportController.class);
     /**
+     * Könyvtárbetöltő példány az adatok betöltéséhez használt fájl eléréséhez.
+     */
+    ClassLoader classLoader = getClass().getClassLoader();
+    /**
      * A ProductModel osztály egy példánya.
      */
     private ProductModel productModel = null;
@@ -40,7 +44,7 @@ public class ImportController {
         if (importFileName.getText() != null && importFileName.getText().length() > 0) {
             productModel = new ProductModel();
             try {
-                Scanner fajl = new Scanner(new File("src/main/resources/import/"+importFileName.getText()+".txt"));
+                Scanner fajl = new Scanner(new File(classLoader.getResource(importFileName.getText()+".txt").getFile()));
                 while (fajl.hasNextLine()) {
                     Scanner sor = new Scanner(fajl.nextLine());
                     sor.useDelimiter(";");
@@ -49,6 +53,7 @@ public class ImportController {
                     productModel.addProduct(new Product(label,unitLabel));
                 }
             } catch (Exception ex){
+                System.out.println(importFileName.getText());
                 logger.error("Adatbetöltés nem sikerült, fálj beolvasási hiba.");
             }
         } else {
