@@ -17,7 +17,7 @@ Linux (Ubuntu) előkészületek:
 Telepítés és futtatás:
  - Tároló klónozása
  - az "mvn clean package" parancs kiadása a "warehouse" mappában
- - "java -cp target\Warehouse-1.0-jar-with-dependencies.jar hu.unideb.inf.warehouse.app.MainApp XYZ" parancs kiadásával indul az alkalmazás
+ - "java -jar target\Warehouse-1.0-jar-with-dependencies.jar XYZ" parancs kiadásával indul az alkalmazás
 
 Alapbeállításon létrehoz egy lokális adatbázist. A "warehouse\src\main\resources\META-INF\persistence.xml" fájlt módosítva hozzákacsolható egyéb adatbázis szerverekhez (pl.: Heroku, MySql) is.
 
