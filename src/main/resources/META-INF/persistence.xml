@@ -9,7 +9,7 @@
         <class>hu.unideb.inf.warehouse.pojo.UnitPrice</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby:${basedir}/localJdbcDB;create=true" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:localJdbcDB;create=true" />
             <property name="javax.persistence.jdbc.user" value="u_u5ka1v" />
 
             <property name="javax.persistence.schema-generation.database.action" value="none"/>
